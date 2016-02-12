@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayerTest", "DataAccessLayerTest\DataAccessLayerTest.csproj", "{47701875-40B8-4F87-B575-319471AD6AC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JediTournamentWCF", "JediTournamentWCF\JediTournamentWCF.csproj", "{B2186812-5843-4949-B853-8D3F1D4DF1CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{47701875-40B8-4F87-B575-319471AD6AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47701875-40B8-4F87-B575-319471AD6AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47701875-40B8-4F87-B575-319471AD6AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2186812-5843-4949-B853-8D3F1D4DF1CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2186812-5843-4949-B853-8D3F1D4DF1CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2186812-5843-4949-B853-8D3F1D4DF1CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2186812-5843-4949-B853-8D3F1D4DF1CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
