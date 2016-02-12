@@ -28,51 +28,42 @@ namespace JediTournamentWCF {
         }
 
         List<CaracteristiqueWCF> IServiceJediTournament.getCaracs() {
-            throw new NotImplementedException();
-        }
+            List<CaracteristiqueWCF> values = new List<CaracteristiqueWCF>();
+            JediTournamentManager manager = new JediTournamentManager();
 
-        string IServiceJediTournament.GetData(int value) {
-            throw new NotImplementedException();
-        }
+            foreach(Jedi j in manager.getAllJedis()) {
+                foreach(Caracteristique c in j.Caracteristiques) {
+                    values.Add(new CaracteristiqueWCF(c));
+                }
+            }
 
-        CompositeType IServiceJediTournament.GetDataUsingDataContract(CompositeType composite) {
-            throw new NotImplementedException();
+            return values;
         }
-
-        
 
         List<MatchWCF> IServiceJediTournament.getMatchs() {
-            throw new NotImplementedException();
+            List<MatchWCF> values = new List<MatchWCF>();
+            JediTournamentManager manager = new JediTournamentManager();
+
+            foreach(Match m in manager.getAllMatchs()) {
+                values.Add(new MatchWCF(m));
+            }
+
+            return values;
         }
 
         List<StadeWCF> IServiceJediTournament.getStades() {
-            throw new NotImplementedException();
+            List<StadeWCF> values = new List<StadeWCF>();
+            JediTournamentManager manager = new JediTournamentManager();
+
+            foreach(Stade s in manager.getAllStades()) {
+                values.Add(new StadeWCF(s));
+            }
+
+            return values;
         }
 
         List<TournoiWCF> IServiceJediTournament.getTournois() {
             throw new NotImplementedException();
         }
-
-
-
-        /*
-
-                public string GetData(int value) {
-                    return string.Format("You entered: {0}", value);
-                }
-
-                public CompositeType GetDataUsingDataContract(CompositeType composite) {
-                    if (composite == null) {
-                        throw new ArgumentNullException("composite");
-                    }
-                    if (composite.BoolValue) {
-                        composite.StringValue += "Suffix";
-                    }
-                    return composite;
-                }
-                */
-
-
-
     }
 }

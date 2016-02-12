@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="60633e5b-9957-49df-9b84-46771ceff67f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:3018/ServiceJediTournament.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServiceJediTournament.wsdl" MetadataType="Wsdl" ID="415ec56c-0e96-4f87-ba85-97a67a91e479" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?wsdl" />
+    <MetadataFile FileName="ServiceJediTournament.xsd" MetadataType="Schema" ID="ad25077b-2edb-491c-b22f-c907085d2ba5" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServiceJediTournament.disco" MetadataType="Disco" ID="5235b83c-07ed-4616-b42a-a3fa39518cea" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?disco" />
+    <MetadataFile FileName="ServiceJediTournament1.xsd" MetadataType="Schema" ID="ff8e8cb4-603d-4cab-a0d1-e227be42f433" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServiceJediTournament2.xsd" MetadataType="Schema" ID="c1c05b8a-0108-421a-9876-135f5e76ed9a" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServiceJediTournament3.xsd" MetadataType="Schema" ID="e5812715-0849-4aa3-bd43-54f40d0710d0" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

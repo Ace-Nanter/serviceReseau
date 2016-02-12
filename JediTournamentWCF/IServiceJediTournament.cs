@@ -10,20 +10,6 @@ namespace JediTournamentWCF {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IServiceJediTournament" à la fois dans le code et le fichier de configuration.
     [ServiceContract]
     public interface IServiceJediTournament {
-
-        /// <summary>
-        /// Default Operation of the Web Service.
-        /// </summary>
-        /// <param name="value">Value to give.</param>
-        /// <returns>A string which contained the value.</returns>
-        [OperationContract]
-        string GetData(int value);
-
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-
         /// <summary>
         /// Get the Jedis list.
         /// </summary>
