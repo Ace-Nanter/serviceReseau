@@ -10,7 +10,7 @@ namespace JediTournamentWCFTest {
         public void SelectMethod() {
             ServiceJediTournamentEntities.ServiceJediTournamentClient client = new ServiceJediTournamentEntities.ServiceJediTournamentClient();
             List<JediWCF> testList = client.getJedis();
-            //Assert.AreNotEqual(0, testList.Count);
+            Assert.AreNotEqual(0, testList.Count);
 
             client.Close();
         }

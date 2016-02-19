@@ -24,6 +24,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JediTournamentWCFTest", "Je
 		{B2186812-5843-4949-B853-8D3F1D4DF1CF} = {B2186812-5843-4949-B853-8D3F1D4DF1CF}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JediTournamentWebApp", "JediTournamentWebApp\JediTournamentWebApp.csproj", "{673BE4AC-BFB4-4CCF-9B8F-2F81B12CAE2F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B2186812-5843-4949-B853-8D3F1D4DF1CF} = {B2186812-5843-4949-B853-8D3F1D4DF1CF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JediTournamentWebAppTest", "JediTournamentWebAppTest\JediTournamentWebAppTest.csproj", "{6ACC0370-9686-4220-A1B6-1BDE9B9E6FF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +73,14 @@ Global
 		{69E84503-0DB2-4207-874E-B6B7AD4873E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69E84503-0DB2-4207-874E-B6B7AD4873E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69E84503-0DB2-4207-874E-B6B7AD4873E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{673BE4AC-BFB4-4CCF-9B8F-2F81B12CAE2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673BE4AC-BFB4-4CCF-9B8F-2F81B12CAE2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673BE4AC-BFB4-4CCF-9B8F-2F81B12CAE2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673BE4AC-BFB4-4CCF-9B8F-2F81B12CAE2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ACC0370-9686-4220-A1B6-1BDE9B9E6FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ACC0370-9686-4220-A1B6-1BDE9B9E6FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ACC0370-9686-4220-A1B6-1BDE9B9E6FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ACC0370-9686-4220-A1B6-1BDE9B9E6FF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
