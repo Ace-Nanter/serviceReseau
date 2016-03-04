@@ -1,29 +1,30 @@
-﻿namespace EntitiesLayer
+﻿using System.Runtime.InteropServices;
+
+namespace EntitiesLayer
 {
-    /// <summary>
-    /// Classe mère de toutes les classes.
-    /// </summary>
     public abstract class EntityObject
     {
-        /// <summary>
-        /// ID de l'instance.
-        /// </summary>
-        private int _iD;
+        private int id = 0;
+        protected static int NB = 0;
 
-        public int ID
+        public int Id
         {
-            get { return _iD; }
-            set { _iD = value; }
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
         }
 
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        /// <param name="id">ID associé à l'instance.</param>
-        public EntityObject(int id)
+        public EntityObject()
         {
-            ID = id;
+            ++NB;
         }
+
+
     }
-    
 }

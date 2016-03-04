@@ -4,90 +4,98 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntitiesLayer;
+using System.IO;
+
 namespace DataAccessLayer
 {
-    /// <summary>
-    /// Access to the data in the SQL file
-    /// Sealed prevents heritage
-    /// Pattern Singleton used
-    /// </summary>
-    public sealed class DalManager{
-        private static DalManager m_instance = null;
+    public class DalManager
+    {
+        private static DalManager _instance;
         private static readonly object padlock = new object();
-        IBridge bd;
-        /// <summary>
-        /// Constructor of the Singleton DalManager
-        /// </summary>
-        /// <returns>
-        /// DalManager instanciate or not
-        /// </returns>
+        IBridge bdd;
+
         public static DalManager Instance
         {
             get
             {
-                if (m_instance == null) {
-                    lock (padlock) {
-                        if (m_instance == null) {
-                            m_instance = new DalManager();
+                if (_instance == null)
+                {
+                    lock (padlock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new DalManager();
                         }
                     }
                 }
-                return m_instance;
+                return _instance;
             }
         }
-        public DalManager()
+
+        private DalManager()
         {
-            string connection = "Data Source=reseaug5.database.windows.net;Initial Catalog=JediTournamentBDD;Integrated Security=False;User ID=Reseau;Password=JediTournamentEntities2016;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            bd = new SQLAccess(connection);
+            string root = AppDomain.CurrentDomain.BaseDirectory + "\\";
+            root = root.Split(new string[] { "JediTournamentConsole", "ApplicationWPF", "DataAccessLayerTest", "BusinessLayerTest", "JediTournamentWCF", "JediTournamentWCFTest" }, StringSplitOptions.None)[0];
+            string url = "Data Source = (LocalDB)\\MSSQLLocalDB;AttachDbFilename=" + root + "Database\\JediTournament.mdf;Integrated Security=True;Connect Timeout=30";
+            bdd = new MSSQLSFile(url);
+            //bdd = new StubDatabase();
         }
 
-        public Jedi getJedi(int id) {
-            return bd.SelectJediById(id);
-        }
         public List<Jedi> getJedis()
         {
-            return bd.SelectAllJedis();
+            return bdd.getJedis();
         }
-
-        public bool insertCarac(Caracteristique c, Jedi j) {
-            return bd.InsertJediCarac(c, j);
-        }
-
-        public bool removeCarac(Caracteristique c, Jedi j) {
-            return bd.RemoveJediCarac(c, j);
-        }
-
         public List<Stade> getStades()
         {
-            return bd.SelectAllStades();
+            return bdd.getStades();
         }
-
-        public bool DeleteJedis(Jedi _jedi)
+        public List<Match> getMatches()
         {
-            return bd.RemoveJedi(_jedi);
+            return bdd.getMatches();
         }
-        public int DeleteStades(Stade _stade)
+        public List<Tournoi> getTournois()
         {
-            return bd.RemoveStade(_stade);
+            return bdd.getTournois();
         }
-        public bool UpdateJedi(Jedi _jedi)
+        public List<Caracteristique> getCaracteristiques()
         {
-            return bd.EditJedi(_jedi);
+            return bdd.getCaracteristiques();
         }
-        public int UpdateStade(Stade _stade)
+        public int updateJedis(List<Jedi> l)
         {
-            return bd.EditStade(_stade);
+            return bdd.updateJedis(l);
         }
-        public bool InsertJedi(Jedi _jedi)
+        public int updateStades(List<Stade> l)
         {
-            return bd.InsertJedi(_jedi);
+            return bdd.updateStades(l);
         }
-        public int InsertStade(Stade _stade)
+        public int updateMatches(List<Match> l)
         {
-            return bd.InsertStade(_stade);
+            return bdd.updateMatches(l);
         }
-        
-
-
+        public int updateTournois(List<Tournoi> l)
+        {
+            return bdd.updateTournois(l);
+        }
+        public int updateCaracteristiques(List<Caracteristique> l)
+        {
+            return bdd.updateCaracteristiques(l);
+        }
+        public Utilisateur GetUtilisateurByLogin(string login)
+        {
+            return bdd.getUtilisateurByLogin(login);
+        }
+        public List<Utilisateur> getUsers()
+        {
+            return bdd.getUsers();
+        }
+        public bool addUser(Utilisateur u)
+        {
+            return bdd.addUser(u);
+        }
+        public bool deleteUserByLogin(string login)
+        {
+            return bdd.deleteUserByLogin(login);
+        }
     }
 }

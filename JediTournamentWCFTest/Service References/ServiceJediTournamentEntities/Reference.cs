@@ -326,16 +326,49 @@ namespace JediTournamentWCFTest.ServiceJediTournamentEntities {
     public enum EPhaseTournoi : int {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        HuitiemeFinale = 0,
+        HuitiemeFinale1 = 14,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        QuartFinale = 1,
+        HuitiemeFinale2 = 13,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        DemiFinale = 2,
+        HuitiemeFinale3 = 12,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Finale = 3,
+        HuitiemeFinale4 = 11,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale5 = 10,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale6 = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale7 = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale8 = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale1 = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale2 = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale3 = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale4 = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DemiFinale1 = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DemiFinale2 = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Finale = 0,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

@@ -12,11 +12,15 @@ namespace JediTournamentWCF {
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceJediTournament.svc ou ServiceJediTournament.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceJediTournament : IServiceJediTournament {
 
+        /// <summary>
+        /// Obtenir tous les jedis
+        /// </summary>
+        /// <returns>Liste de tous les jedis.</returns>
         List<JediWCF> IServiceJediTournament.getJedis() {
             List<JediWCF> values = new List<JediWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Jedi j in manager.getAllJedis()) {
+            foreach(Jedi j in manager.getJedis()) {
                 values.Add(new JediWCF(j));
             }
 
@@ -31,7 +35,7 @@ namespace JediTournamentWCF {
             List<CaracteristiqueWCF> values = new List<CaracteristiqueWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Jedi j in manager.getAllJedis()) {
+            foreach(Jedi j in manager.getJedis()) {
                 foreach(Caracteristique c in j.Caracteristiques) {
                     values.Add(new CaracteristiqueWCF(c));
                 }
@@ -44,7 +48,7 @@ namespace JediTournamentWCF {
             List<MatchWCF> values = new List<MatchWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Match m in manager.getAllMatchs()) {
+            foreach(Match m in manager.getMatches()) {
                 values.Add(new MatchWCF(m));
             }
 
@@ -55,7 +59,7 @@ namespace JediTournamentWCF {
             List<StadeWCF> values = new List<StadeWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Stade s in manager.getAllStades()) {
+            foreach(Stade s in manager.getStades()) {
                 values.Add(new StadeWCF(s));
             }
 

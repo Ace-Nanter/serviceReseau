@@ -1,195 +1,343 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using StubDataAccessLayer;          // TODO : échanger avec le DataAccessLayer
 using EntitiesLayer;
-using System.IO;
-using System.Xml.Serialization;
-//using DataAccessLayer;
+using BusinessLayer;
+using System.Security.Cryptography;
+using System.Xml;
+
 namespace BusinessLayer
 {
     public class JediTournamentManager
     {
-         //private DalManager m_data;    /// Gestionnaire d'interactions avec la base de données.
-        private DalManager m_data;
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        public JediTournamentManager()
+        private static DataAccessLayer.DalManager bdd = DataAccessLayer.DalManager.Instance;
+
+        #region Stades management
+        public List<Stade> getStades()
         {
-            m_data = new DalManager();
+            return bdd.getStades();
+        }
+        public int updateStades(List<Stade> l)
+        {
+            return bdd.updateStades(l);
         }
 
-        #region Getters
-        /// <summary>
-        /// Donne la liste de l'ensemble des objets matchs.
-        /// </summary>
-        /// <returns>Liste des objets matchs.</returns>
-        public List<Match> getAllMatchs()
+        public List<Stade> getStadesByNbPlace(int nbPlace)
         {
-            return m_data.getAllMatchs();
+            return (from x in bdd.getStades() where x.NbPlaces >= nbPlace select x).ToList();
         }
 
-        /// <summary>
-        /// Donne la liste des stades disponibles.
-        /// </summary>
-        /// <returns>Liste des noms des stades.</returns>
-        public List<string> getStadesNames()
+        public List<Stade> getStadeByCarac(Caracteristique carac)
         {
-            return m_data.getAllStades().Select(s => s.Planete).ToList();
+            return (from x in bdd.getStades() where x.Caracteristiques.Contains(carac) select x).ToList();
         }
 
-        /// <summary>
-        /// Donne la liste des noms de tous les jedis.
-        /// </summary>
-        /// <returns>Liste des noms de tous les jedis.</returns>
-        public List<string> getAllJedisNames()
+        public List<Stade> getStadeByPlanet(String planet)
         {
-            return m_data.getAllJedis().Select(j => j.Nom).ToList();
+            return (from x in bdd.getStades() where x.Planete == planet select x).ToList();
+        }
+        #endregion
+
+        #region Jedis management
+        public List<Jedi> getJedis()
+        {
+            return bdd.getJedis();
+        }
+        public int updateJedis(List<Jedi> l)
+        {
+            return bdd.updateJedis(l);
         }
 
-        /// <summary>
-        /// Donne la liste des noms des jedis siths.
-        /// </summary>
-        /// <returns>Liste des noms des jedis siths.</returns>
-        public List<string> getSithsNames()
+        public List<Jedi> getWhiteSideJedis()
         {
-            return m_data.getAllJedis().Where(j => j.IsSith).Select(j => j.Nom).ToList();
+            return (from x in bdd.getJedis() where x.IsSith == false select x).ToList();
         }
 
-        public List<string> getJedisNames() {
-            return m_data.getAllJedis().Where(j => !j.IsSith).Select(j => j.Nom).ToList();
-        }
-        /// <summary>
-        /// Donne la liste des jedis ayant plus de 3 points de Force et 50 points de vie.
-        /// </summary>
-        /// <returns>Liste des noms des jedis avec plus de 3 points de Force et 50 points de vie.</returns>
-        public List<string> getJedis3F50PV()
+        public List<Jedi> getDarkSideJedis()
         {
-            return m_data.getAllJedis().Where(j => j.Caracteristiques != null
-                                                && j.Caracteristiques.Any(c => c.Type == ETypeCaracteristique.Jedi && c.Definition == EDefCaracteristique.Force && c.Valeur > 3)
-                                                && j.Caracteristiques.Any(c => c.Type == ETypeCaracteristique.Jedi && c.Definition == EDefCaracteristique.Sante && c.Valeur > 50)
-                                              ).Select(j => j.Nom).ToList();
+            return (from x in bdd.getJedis() where x.IsSith == true select x).ToList();
         }
 
-        /// <summary>
-        /// Donne la liste de tous les combattants.
-        /// </summary>
-        /// <returns>Liste de tous les combattants.</returns>
-        public List<Jedi> getAllJedis()
+        public List<Jedi> getJedisByName(string name)
         {
-            return m_data.getAllJedis();
+            return (from x in bdd.getJedis() where x.Nom == name select x).ToList();
         }
 
-        /// <summary>
-        /// Donne la liste de tous les jedis.
-        /// </summary>
-        /// <returns>Liste de tous les jedis.</returns>
-        public List<Jedi> getSiths() {
-            return m_data.getAllJedis().Where(j => j.IsSith).ToList();
+        public IEnumerable<String> getDarkSideJedisNames()
+        {
+            IEnumerable<String> coteObscur = from x in bdd.getJedis() where x.IsSith == true select x.Nom;
+
+            return coteObscur;
         }
+        #endregion
+
+        #region Caracteristiques
+        public List<Caracteristique> getCaracteristiques()
+        {
+            return bdd.getCaracteristiques();
+        }
+        public int updateCaracteristiques(List<Caracteristique> l)
+        {
+            return bdd.updateCaracteristiques(l);
+        }
+        #endregion
+
+        #region Match management
+        public List<Match> getMatches()
+        {
+            return bdd.getMatches();
+        }
+        public int updateMatches(List<Match> l)
+        {
+            return bdd.updateMatches(l);
+        }
+
+        public List<Match> getMatchsByJedisName(string j1, string j2)
+        {
+            return (from x in bdd.getMatches()
+                    where (x.Jedi1.Nom == j1 && x.Jedi2.Nom == j2) ||
+                          (x.Jedi1.Nom == j2 && x.Jedi2.Nom == j1)
+                    select x).ToList();
+        }
+
+        public List<Match> getMatchsByWinner(string winner)
+        {
+            return (from x in bdd.getMatches() 
+                    where (from y in bdd.getJedis() 
+                           where y.Nom == winner 
+                           select y.Id).Any()
+                    select x).ToList();
+        }
+
+        public List<Match> getMatchsEmpty()
+        {
+
+            return (from x in bdd.getMatches()
+                    where x.Jedi1 == null && x.Jedi2 == null
+                    select x).ToList();
+        }
+
+        public List<Match> getMatchsNonEmpty()
+        {
+
+            return (from x in bdd.getMatches()
+                    where x.Jedi1 != null && x.Jedi2 != null
+                    select x).ToList();
+        }
+
+        public IEnumerable<Match> getMatches200Sith()
+        {
+            IEnumerable<Match> matches = from x in bdd.getMatches()
+                                         where x.Stade.NbPlaces >= 200 && x.Jedi2 != null && x.Jedi1.IsSith == true
+                                               && x.Jedi2 != null && x.Jedi2.IsSith == true
+                                         select x;
+            return matches;
+        }
+        #endregion
+
+        #region Tournoi management
+        public List<Tournoi> getTournois()
+        {
+            return bdd.getTournois();
+        }
+        public int updateTournois(List<Tournoi> l)
+        {
+            return bdd.updateTournois(l);
+        }
+        #endregion
+
+        #region User management
+        public static bool CheckConnexionUser(string login, string mdp)
+        {
+            bool isOk = false;
+            string password = HashSHA1(mdp + login);
+            Utilisateur user = bdd.GetUtilisateurByLogin(login);
+
+            if (user != null)
+            {
+                if (user.Password.Equals(password))
+                {
+                    isOk = true;
+                }
+            }
+
+            return isOk;
+        }
+        public bool AddUser(string login, string mdp, string nom, string prenom)
+        {
+            bool isOk = false;
+            string password = HashSHA1(mdp + login);
+            Utilisateur user = new Utilisateur(0, login, password, nom, prenom);
+
+            isOk = bdd.addUser(user);
+
+            return isOk;
+        }
+
+        public List<Utilisateur> getUsers()
+        {
+            return bdd.getUsers();
+        }
+
+        public static string HashSHA1(string data)
+        {
+            SHA1 sha1 = SHA1.Create();
+            byte[] hashData = sha1.ComputeHash(Encoding.Default.GetBytes(data));
+            StringBuilder returnValue = new StringBuilder();
+
+            for(int i = 0 ; i < hashData.Length ; i++)
+            {
+                returnValue.Append(hashData[i].ToString());
+            }
+
+            return returnValue.ToString();
+        }
+        #endregion
+
+
         
-        /// <summary>
-        /// Donne la liste de tous les siths.
-        /// </summary>
-        /// <returns>Liste de tous les siths.</returns>
-        public List<Jedi> getJedis() {
-            return m_data.getAllJedis().Where(j => !j.IsSith).ToList();
-        }
 
-        /// <summary>
-        /// Donne la liste de tous les stades.
-        /// </summary>
-        /// <returns>Liste de tous les stades.</returns>
-        public List<Stade> getAllStades()
+        #region Game Simulation       
+
+        public int playRound(EShifumi choiceA, EShifumi choiceB)
         {
-            return m_data.getAllStades();
+            return (choiceA == choiceB ? 0 :            // si egalite ZERO
+                    (choiceA == choiceB+1 ? -1 :        // si A gagne -1
+                    (choiceA == EShifumi.Pierre && choiceB == EShifumi.Ciseau ? -1 : 1)));   // si B gagne 1
         }
 
-        /// <summary>
-        /// Donne la liste des matchs qui ont eu lieu dans un stade de plus de 200 places et ou deux Siths se sont affrontés.
-        /// </summary>
-        /// <returns>Liste des matchs qui ont eu lieu dans un stade de plus de 200 places et ou deux Siths se sont affrontés.</returns>
-        public List<Match> getMatch200P2S()
+        public Jedi simulateMatch(Match m)
         {
-            List<Match> list = m_data.getAllMatchs().Where(m => m.Stade.NbPlaces > 200 && m.Jedi1.IsSith && m.Jedi2.IsSith).ToList();
-            return new HashSet<Match>(list).ToList();   // Rend unique
+            Jedi winner = m.Jedi1;
+            Random rd = new Random();
+            double balance = .5;
+            
+            double gain1, gain2, gain3, gain4;
+            double [] stade = new double[3];
+            stade[0] = 0;
+            stade[1] = 0;
+            stade[2] = 0;
+            gain1 = rd.NextDouble();
+            gain1 = gain1 <= m.Jedi1.getPerception() / 100 ? 1 + gain1 : 1;
+            gain2 = rd.NextDouble();
+            gain2 = gain2 <= m.Jedi2.getPerception() / 100 ? 1 + gain2 : 1;
+            gain3 = rd.NextDouble();
+            gain3 = gain3 <= m.Jedi1.getPerception() / 100 ? 1 + gain3 : 1;
+            gain4 = rd.NextDouble();
+            gain4 = gain4 <= m.Jedi2.getPerception() / 100 ? 1 + gain4 : 1;
+
+            foreach(Caracteristique c in m.Stade.Caracteristiques)
+            {
+                stade[(int)c.Definition] += c.Valeur;
+            }
+
+            if(m.Jedi1.IsSith != m.Jedi2.IsSith)
+            {
+                balance += ((stade[(int)EDefCaracteristique.Strength] + stade[(int)EDefCaracteristique.Dexterity]) / 100);
+                balance = balance * (1 + stade[(int)EDefCaracteristique.Perception] / 100);
+            }
+
+            balance += ((m.Jedi1.getStrength()/100*gain1-m.Jedi2.getDexterity()/100*gain2) + (m.Jedi2.getStrength() / 100 * gain4 - m.Jedi1.getDexterity() / 100 * gain3));
+            
+            if (rd.NextDouble() > balance)
+                winner = m.Jedi2;
+
+            return winner;
         }
 
+        public class MatchOrderComparer : IComparer<Match>
+        {
+            public int Compare(Match x, Match y)
+            {
+                if(x.PhaseTournoi <= y.PhaseTournoi)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        public void simulateTournament(Tournoi championship)
+        {
+            Queue<Jedi> winners = new Queue<Jedi>();
+            Dictionary<int, List<Match>> championshipScheme = new Dictionary<int, List<Match>>();
+            MatchOrderComparer comp = new MatchOrderComparer();
+            List<Match> tournoi = championship.Matchs;
+            tournoi.Sort(comp);
+            List<Match> tmp = new List<Match>();
+            tmp.AddRange(tournoi.Where(x => x.PhaseTournoi < EPhaseTournoi.QuartFinale1));
+            championshipScheme.Add(0, tmp);
+            tmp = new List<Match>();
+            tmp.AddRange(tournoi.Where(x => x.PhaseTournoi < EPhaseTournoi.DemiFinale1));
+            championshipScheme.Add(1, tmp);
+            tmp = new List<Match>();
+            tmp.AddRange(tournoi.Where(x => x.PhaseTournoi < EPhaseTournoi.Finale));
+            championshipScheme.Add(2, tmp);
+            tmp = new List<Match>();
+            tmp.AddRange(tournoi.Where(x => x.PhaseTournoi == EPhaseTournoi.Finale));
+            championshipScheme.Add(3, tmp);
+
+            foreach (KeyValuePair<int, List<Match>> phase in championshipScheme)
+            {
+                if(winners.Count != 0)
+                {
+                    foreach (Match m in phase.Value)
+                    {
+                        m.Jedi1 = winners.Dequeue();
+                        m.Jedi2 = winners.Dequeue();
+                    }
+                }
+                Console.Out.WriteLine(phase.Key);
+                foreach (Match m in phase.Value)
+                {
+                    winners.Enqueue(simulateMatch(m));
+                }
+            }
+        }
         #endregion
 
-        #region Updaters
-        public int updateJedis(List<Jedi> old_list, List<Jedi> new_list) {
-            int value = 0;
-
-            // TODO : to implement
-
-            return value;
-        }
-
-        public int updateStades(List<Stade> old_stades, List<Stade> new_stades) {
-            int value = 0;
-
-            // TODO : to implement
-
-            return value;
-        }
-
-        public int updateMatch(Match m) {
-            int value = 0;
-
-            // TODO : to implement
-
-            return value;
-        }
-
-        public bool updateTournoi(Tournoi t) {
-            bool flag = true;
-
-            // TODO : to implement
-
-            return flag;
-        }
-
-        #endregion
-
-        #region Insert
-        public bool insertTournament(Tournoi t) {
-            bool flag = true;
-           // m_data
-            // TODO : to implement
-
-            return flag;
-        }
-
-        #endregion
-
-        //public int updateTournament()
-
-        /// <summary>
-        /// Vérifie que le mot de passe correspond au login entré.
-        /// </summary>
-        /// <param name="login">Login de l'utilisateur.</param>
-        /// <param name="passwd">Mot de passe à vérifier.</param>
-        /// <returns>Vrai si le mot de passe correspond, sinon faux.</returns>
-        public bool checkConnexionUser(string login, string passwd)
+        #region XML
+        public void exportJedis(String filename)
         {
-            Utilisateur user = m_data.getUtilisateurByLogin(login);
-            return user != null && user.Password == passwd;
-        }
-        
-        public void serializeJedis(string path)
-        {
-            // La sérialization peut être placé soit dans BusinessLayer, Presentation ou DataAccessLayer (Jamais dans EntityLayer)
-            // Il peut être préférable de le placer dans la couche métier (Business Layer)
-            StreamWriter stream = new StreamWriter(path);
-            XmlSerializer serializer = new XmlSerializer(typeof(Jedi));
-            foreach (Jedi j in m_data.getAllJedis())
-                serializer.Serialize(stream, j);
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = "\t";
+            XmlWriter writer = XmlWriter.Create(filename, settings);
+            writer.WriteStartDocument();
+            writer.WriteStartElement("Jedis");
 
-            stream.Close();
+            foreach (Jedi jedi in bdd.getJedis())
+            {
+                writer.WriteStartElement("Jedi");
+
+                writer.WriteElementString("ID", jedi.Id.ToString());
+                writer.WriteElementString("Nom", jedi.Nom.ToString());
+                writer.WriteElementString("IsSith", jedi.IsSith.ToString());
+                writer.WriteStartElement("Caracteristiques");
+                foreach (Caracteristique carac in jedi.Caracteristiques)
+                {
+                    writer.WriteStartElement("Caracteristique");
+                    writer.WriteElementString("ID", carac.Id.ToString());
+                    writer.WriteElementString("Nom", carac.Nom.ToString());
+                    writer.WriteElementString("Type", carac.Type.ToString());
+                    writer.WriteElementString("Valeur", carac.Valeur.ToString());
+                    writer.WriteEndElement();
+                }
+                writer.WriteEndElement();
+
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Close();
         }
+        #endregion
     }
 }

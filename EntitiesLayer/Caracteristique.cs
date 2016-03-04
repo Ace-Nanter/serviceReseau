@@ -2,76 +2,44 @@
 
 namespace EntitiesLayer
 {
-    /// <summary>
-    /// Énumération des différentes caractéristiques possibles.
-    /// </summary>
-    public enum EDefCaracteristique
-    {
-        Force,
-        Defense,
-        Sante,
-        Chance
-    }
-
-    /// <summary>
-    /// Énumération des différents types de caractéristiques possibles.
-    /// </summary>
-    public enum ETypeCaracteristique
-    {
-        Jedi,
-        Stade
-    }
-
-    [Serializable]
     public class Caracteristique : EntityObject
     {
-        public EDefCaracteristique Definition { get; set; }
-        public string Nom { get; set; }
-        public ETypeCaracteristique Type { get; set; }
-        public int Valeur { get; set; }
+        private EDefCaracteristique definition;
+        private String               nom;
+        private ETypeCaracteristique type;
+        private int valeur;
 
-        /// <summary>
-        /// Constructeur par défaut.
-        /// </summary>
-        public Caracteristique()
-            : base(0)
+        public Caracteristique(int id, EDefCaracteristique definition, string nom, ETypeCaracteristique type, int valeur)
         {
-            Nom = "Default Name";
-            Valeur = 0;
-            Type = ETypeCaracteristique.Jedi;
-            Definition = EDefCaracteristique.Chance;
+            this.Id = id;
+            this.definition = definition;
+            this.nom = nom;
+            this.type = type;
+            this.valeur = valeur;
         }
 
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        /// <param name="id">Id de la caractéristique.</param>
-        /// <param name="nom">Nom de la caractéristique.</param>
-        /// <param name="definition">Caractéristique concernée.</param>
-        /// <param name="type">Type de la caractéristique.</param>
-        /// <param name="valeur">Valeur affectée à la caractéristique.</param>
-        public Caracteristique(int id, string nom, EDefCaracteristique definition, ETypeCaracteristique type, int valeur) 
-            : base(id)
+        public EDefCaracteristique Definition
         {
-            Nom = nom;
-            Definition = definition;
-            Type = type;
-            Valeur = valeur;
+            get { return definition; }
+            set { definition = value; }
         }
 
-        public Caracteristique(int id, string nom, int definition, ETypeCaracteristique type, int valeur)
-            : base(id) {
-            Nom = nom;
-            Definition = (EDefCaracteristique) definition;
-            Type = type;
-            Valeur = valeur;
+        public string Nom
+        {
+            get { return nom; }
+            set { nom = value; }
         }
 
-        public Caracteristique(int id, string nom, int valeur)
-            : base(id)
+        public ETypeCaracteristique Type
         {
-            Nom = nom;
-            Valeur = valeur;
+            get { return type; }
+            set { type = value; }
+        }
+
+        public int Valeur
+        {
+            get { return valeur; }
+            set { valeur = value; }
         }
     }
 }

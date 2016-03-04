@@ -3,46 +3,101 @@ using System.Collections.Generic;
 
 namespace EntitiesLayer
 {
-    [Serializable]
-    public class Jedi : EntityObject
+    public class Jedi: EntityObject
     {
-        public List<Caracteristique> Caracteristiques { get; set; }
-        public bool IsSith { get; set; }
-        public string Nom { get; set; }
-        public string Photo { get; set; }         /// <summary>
-        /// Constructeur par défaut.
-        /// </summary>
-        public Jedi()
-            : base(0)
+        private List<Caracteristique> caracteristiques;
+        private bool isSith;
+        private String nom;
+        private String image;
+
+
+        public Jedi(int id, List<Caracteristique> caracteristiques, bool isSith, string nom, string image = "default.png")
         {
-            Nom = "Default Name";
-            IsSith = false;
-            Caracteristiques = null;
-            Photo = null;
+            this.caracteristiques = caracteristiques;
+            this.isSith = isSith;
+            this.nom = nom;
+            this.image = image;
+            this.Id = id;
         }
 
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        /// <param name="id">ID du Jedi.</param>
-        /// <param name="nom">Nom du jedi.</param>
-        /// <param name="isSith">Booléen indiquant si c'est un sith ou non.</param>
-        /// <param name="carac">Caractéristiques du jedi.</param>
-        public Jedi(int id, string nom, bool isSith, List<Caracteristique> carac) 
-            : base(id)
+        public List<Caracteristique> Caracteristiques
         {
-            Nom = nom;
-            IsSith = isSith;
-            Caracteristiques = carac;
-            Photo = null;
+            get { return caracteristiques; }
+            set { caracteristiques = value; }
         }
-        public Jedi(int id, string nom, bool isSith, List<Caracteristique> carac, string source)
-           : base(id)
+
+        public Uri IsSithUri
         {
-            Nom = nom;
-            IsSith = isSith;
-            Caracteristiques = carac;
-            Photo = source;
+            get {
+                if (IsSith)
+                {
+                    return new Uri("../../Picture/logo_sith.png", UriKind.Relative);
+                }
+                else {
+                    return new Uri("",UriKind.Relative);
+                }
+            }
+        }
+
+
+        public bool IsSith
+        {
+            get { return isSith; }
+            set { isSith = value; }
+        }
+
+        public string Nom
+        {
+            get { return nom; }
+            set { nom = value; }
+        }
+
+        public Uri ImageUri
+        {
+            get { return new Uri("../../Picture/" +  Image, UriKind.Relative); }
+        }
+
+        public string Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                image = value;
+            }
+        }
+
+        public double getPerception()
+        {
+            double retour = 0;
+            foreach(Caracteristique c in Caracteristiques)
+            {
+                retour += (c.Definition == EDefCaracteristique.Perception ? c.Valeur : 0);
+            }
+            return retour;
+        }
+
+        public int getStrength()
+        {
+            int retour = 0;
+            foreach (Caracteristique c in Caracteristiques)
+            {
+                retour += (c.Definition == EDefCaracteristique.Strength ? c.Valeur : 0);
+            }
+            return retour;
+        }
+
+        public int getDexterity()
+        {
+            int retour = 0;
+            foreach (Caracteristique c in Caracteristiques)
+            {
+                retour += (c.Definition == EDefCaracteristique.Dexterity ? c.Valeur : 0);
+            }
+            return retour;
         }
     }
 }

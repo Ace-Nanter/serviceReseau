@@ -1,64 +1,59 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EntitiesLayer
 {
-    public class Stade : EntityObject {
-        private int _nbPlaces;
+    public class Stade : EntityObject
+    {
+        private int nbPlaces;
+        private String planete;
+        private String image;
+        private List<Caracteristique> caracteristiques;
 
-        /// <summary>
-        /// Constructeur par défaut.
-        /// </summary>
-        public Stade()
-            : base(0) {
-            NbPlaces = 0;
-            _Planete = "Default Name";
-            Caracteristiques = null;
-            Photo = null;
+        public Stade(int id, int nbPlaces, string planete, List<Caracteristique> caracteristiques, string image = "img/default.png")
+        {
+            this.Id = id;
+            this.nbPlaces = nbPlaces;
+            this.planete = planete;
+            this.Image = image;
+            this.caracteristiques = caracteristiques;
+        }
+
+        public List<Caracteristique> Caracteristiques
+        {
+            get { return caracteristiques; }
+            set { caracteristiques = value; }
         }
 
         public int NbPlaces
         {
-            get { return _nbPlaces; }
-            set { _nbPlaces = value; }
+            get { return nbPlaces; }
+            set { nbPlaces = value; }
         }
 
-        private List<Caracteristique> _caracteristiques;
-
-        public List<Caracteristique> Caracteristiques
-        {
-            get { return _caracteristiques; }
-            set { _caracteristiques = value; }
-        }
-
-        private string _Planete;
         public string Planete
         {
-            get { return _Planete; }
-            set { _Planete = value; }
+            get { return planete; }
+            set { planete = value; }
         }
 
-        public string Photo { get; set; }
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        /// <param name="id">Id du stade.</param>
-        /// <param name="nbPlaces">Nombre de places du stade.</param>
-        /// <param name="planete">Nom de la planète sur laquelle se situe le stade.</param>
-        /// <param name="carac">Caractéritiques associées au stade.</param>
-        /// <param name="source">Source de la photo associée au stade.</param>
-        public Stade(int id, int nbPlaces, string planete, List<Caracteristique> carac)
-            : base(id) {
-            NbPlaces = nbPlaces;
-            Planete = planete;
-            Caracteristiques = carac;
-            Photo = null;
+        public Uri ImageUri
+        {
+            get { return new Uri("../../Picture/" + Image, UriKind.Relative); }
         }
-        public Stade(int id, int nbPlaces, string planete, List<Caracteristique> carac, string source)
-          : base(id) {
-            NbPlaces = nbPlaces;
-            Planete = planete;
-            Caracteristiques = carac;
-            Photo = source;
+
+
+        public string Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                image = value;
+            }
         }
     }
 }

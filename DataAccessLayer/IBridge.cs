@@ -1,33 +1,27 @@
-﻿using System;
+﻿using EntitiesLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntitiesLayer;
-namespace DataAccessLayer {
-    interface IBridge {
 
-        bool InsertJediCarac(Caracteristique carac, Jedi jedi);
-        bool InsertStadeCarac(Caracteristique carac, Stade stade);
-        bool RemoveJediCarac(Caracteristique c, Jedi j);
-        bool RemoveStadeCarac(Caracteristique c, Stade stade);
-        
-
-        Jedi SelectJediById(int idJedi);
-        List<Jedi> SelectAllJedis();
-        bool InsertJedi(Jedi _jedi);
-        bool RemoveJedi(Jedi _jedi);
-        bool EditJedi(Jedi _jedi);
-        //----------------------------------------------------
-        Stade selectStadeById(int idStade);
-        List<Stade> SelectAllStades();
-        int InsertStade(Stade _stade);
-        int RemoveStade(Stade _stade);
-        int EditStade(Stade _stade);
-        //----------------------------------------------------
-        Tournoi selectTournoiById();
-        int InsertTournoi(Tournoi _tournoi);
-        int RemoveTournoi(Tournoi _tournoi);
-        int EditTournoi(Tournoi _tournoi);
+namespace DataAccessLayer
+{
+    public interface IBridge
+    {
+        List<Jedi> getJedis();
+        List<Stade> getStades();
+        List<Match> getMatches();
+        List<Caracteristique> getCaracteristiques();
+        List<Tournoi> getTournois();
+        List<Utilisateur> getUsers();
+        int updateJedis(List<Jedi> l);
+        int updateStades(List<Stade> l);
+        int updateMatches(List<Match> l);
+        int updateCaracteristiques(List<Caracteristique> l);
+        int updateTournois(List<Tournoi> l);
+        bool addUser(Utilisateur u);
+        Utilisateur getUtilisateurByLogin(string login);
+        bool deleteUserByLogin(string login);
     }
 }

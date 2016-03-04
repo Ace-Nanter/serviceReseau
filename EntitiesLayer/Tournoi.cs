@@ -1,40 +1,44 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EntitiesLayer
 {
-    public class Tournoi : EntityObject
+    public class Tournoi
     {
-        private List<Match> _matchs;
+        private List<Match> matchs;
+        private String nom;
+        private int id;
+
+        public Tournoi(int id, string nom, List<Match> matches)
+        {
+            this.Id = id;
+            this.nom = nom;
+            this.matchs = matches;
+        }
 
         public List<Match> Matchs
         {
-            get { return _matchs; }
-            set { _matchs = value; }
+            get { return matchs; }
+            set { matchs = value; }
         }
-        private string _nom;
 
         public string Nom
         {
-            get { return _nom; }
-            set { _nom = value; }
+            get { return nom; }
+            set { nom = value; }
         }
 
-        public Tournoi() : base(0) {
-            Nom = "Nouveau tournoi";
-            Matchs = new List<Match>();
-        }
-
-        /// <summary>
-        /// Constructeur.
-        /// </summary>
-        /// <param name="id">Id du tournoi.</param>
-        /// <param name="nom">Nom du tournoi.</param>
-        /// <param name="matchs">Match qui ont eu ou auront lieu pendant le tournoi.</param>
-        public Tournoi(int id, string nom, List<Match> matchs) 
-            : base(id)
+        public int Id
         {
-            Nom = nom;
-            Matchs = matchs;
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
         }
     }
 }

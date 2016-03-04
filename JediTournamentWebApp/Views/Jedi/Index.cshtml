@@ -1,36 +1,23 @@
 ﻿@model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
+<table class="table table-bordered">
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>JediView</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+    <thead>
         <tr>
             <th></th>
         </tr>
+    </thead>
+    <tbody>
 
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                <p>@Html.DisplayFor(ModelItem => item.Nom)</p>
-                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-            </td>
-        </tr>
-    }
-    
-    </table>
-</body>
-</html>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.Nom)
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
