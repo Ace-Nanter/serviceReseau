@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestCaracs.cs" />
     <Compile Include="Service References\ServiceJediTournamentEntities\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

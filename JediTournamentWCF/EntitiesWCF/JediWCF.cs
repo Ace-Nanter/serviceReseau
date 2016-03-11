@@ -11,12 +11,14 @@ namespace JediTournamentWCF.EntitiesWCF {
     [DataContract]
     public class JediWCF {
 
+        public static int ID = 0;
+
         [DataMember]
-        private string Nom { get; set; }
+        public string Nom { get; set; }
         [DataMember]
-        private bool IsSith { get; set; }
+        public bool IsSith { get; set; }
         [DataMember]
-        private List<CaracteristiqueWCF> Caracteristiques { get; set; }
+        public List<CaracteristiqueWCF> Caracteristiques { get; set; }
 
         public JediWCF(Jedi j) {
             Nom = j.Nom;
@@ -31,6 +33,20 @@ namespace JediTournamentWCF.EntitiesWCF {
             else
                 Caracteristiques = null;
             
+        }
+
+        /// <summary>
+        /// Convert a JediWCF into a Jedi
+        /// </summary>
+        /// <param name="i">ID of the created Jedi.</param>
+        /// <returns>The Jedi instance of the given JediWCF</returns>
+        public Jedi convert() {
+            List<Caracteristique> caracList = new List<Caracteristique>();
+            foreach(CaracteristiqueWCF c in this.Caracteristiques) {
+                caracList.Add(c.convert());
+            }
+
+            return new Jedi(ID++, caracList, this.IsSith, this.Nom);
         }
     }
 }

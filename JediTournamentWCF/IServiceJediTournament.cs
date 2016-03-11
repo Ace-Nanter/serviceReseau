@@ -10,12 +10,18 @@ namespace JediTournamentWCF {
     // REMARQUE : vous pouvez utiliser la commande Renommer du menu Refactoriser pour changer le nom d'interface "IServiceJediTournament" à la fois dans le code et le fichier de configuration.
     [ServiceContract]
     public interface IServiceJediTournament {
+
+        #region Jedis
         /// <summary>
         /// Get the Jedis list.
         /// </summary>
         /// <returns>List of Jedis.</returns>
         [OperationContract]
         List<JediWCF> getJedis();
+
+        [OperationContract]
+        bool updateJedis(List<JediWCF> jediList);
+        #endregion
 
         /// <summary>
         /// Get the Stades list.
@@ -44,13 +50,5 @@ namespace JediTournamentWCF {
         /// <returns>List of Caracteristics.</returns>
         [OperationContract]
         List<CaracteristiqueWCF> getCaracs();
-
-        /// <summary>
-        /// Insert a jedi in the database.
-        /// </summary>
-        /// <param name="jedi">Jedi to insert.</param>
-        /// <returns>True if success, otherwise false.</returns>
-        [OperationContract]
-        bool AddJedi(JediWCF jedi);
     }
 }

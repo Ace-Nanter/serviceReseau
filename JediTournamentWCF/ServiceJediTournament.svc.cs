@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 using JediTournamentWCF.EntitiesWCF;
 using EntitiesLayer;
 using BusinessLayer;
@@ -11,38 +7,83 @@ using BusinessLayer;
 namespace JediTournamentWCF {
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceJediTournament.svc ou ServiceJediTournament.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
     public class ServiceJediTournament : IServiceJediTournament {
+        
+        #region Jedis
 
-        /// <summary>
-        /// Obtenir tous les jedis
-        /// </summary>
-        /// <returns>Liste de tous les jedis.</returns>
-        List<JediWCF> IServiceJediTournament.getJedis() {
+        private List<JediWCF> getJedis() {
             List<JediWCF> values = new List<JediWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Jedi j in manager.getJedis()) {
+            foreach (Jedi j in manager.getJedis()) {
                 values.Add(new JediWCF(j));
             }
 
             return values;
         }
 
-        bool IServiceJediTournament.AddJedi(JediWCF jedi) {
-            throw new NotImplementedException();
+        /// <summary>
+        /// Obtenir tous les jedis
+        /// </summary>
+        /// <returns>Liste de tous les jedis.</returns>
+        List<JediWCF> IServiceJediTournament.getJedis() {
+            return this.getJedis();
         }
 
-        List<CaracteristiqueWCF> IServiceJediTournament.getCaracs() {
+        bool IServiceJediTournament.updateJedis(List<JediWCF> jediList) {
+
+            bool flag = true;
+            List<Jedi> values = new List<Jedi>();
+            
+            foreach(JediWCF j in jediList) {
+                values.Add(j.convert());
+            }
+
+            JediTournamentManager manager = new JediTournamentManager();
+            manager.updateJedis(values);
+
+            return flag;
+        }
+
+        #endregion
+
+        #region Caractéristiques
+        private List<CaracteristiqueWCF> getCaracs() {
             List<CaracteristiqueWCF> values = new List<CaracteristiqueWCF>();
             JediTournamentManager manager = new JediTournamentManager();
+            List<Caracteristique> caracList = manager.getCaracteristiques();
 
-            foreach(Jedi j in manager.getJedis()) {
-                foreach(Caracteristique c in j.Caracteristiques) {
-                    values.Add(new CaracteristiqueWCF(c));
-                }
+            foreach (Caracteristique c in caracList) {
+                values.Add(new CaracteristiqueWCF(c));
             }
 
             return values;
         }
+
+        private bool updateCaracs(List<CaracteristiqueWCF> listCaracs) { 
+            bool flag = true;
+            List<Caracteristique> values = new List<Caracteristique>();
+            try {
+
+                // Converting
+                foreach (CaracteristiqueWCF c in listCaracs) {
+                    values.Add(c.convert());
+                }
+
+                // Update it
+                JediTournamentManager manager = new JediTournamentManager();
+                manager.updateCaracteristiques(values);
+            }
+            catch(Exception e) {
+                flag = false;
+            }
+            
+            return flag;
+        }
+
+        List<CaracteristiqueWCF> IServiceJediTournament.getCaracs() {
+            return this.getCaracs();
+        }
+        #endregion
 
         List<MatchWCF> IServiceJediTournament.getMatchs() {
             List<MatchWCF> values = new List<MatchWCF>();

@@ -1,20 +1,28 @@
-﻿@model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
-<table class="table table-bordered">
+﻿@Styles.Render("~/Content/css")
+@model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
 
+<div class="button-area">
+    <button class="btn btn-lg btn-success" type="button">Add</button>
+    <button class="btn btn-lg btn-warning" type="button">Modify</button>
+    <button class="btn btn-lg btn-danger" type="button">Remove</button>
+</div>
+
+<table class="table table-bordered gestion-table">
     <thead>
         <tr>
             <th></th>
         </tr>
     </thead>
     <tbody>
-
         @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.Nom)
+                    @Html.DisplayFor(Model => item.Nom)
                     @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                    @*Table dans un table : select caracteristiques*@
                 </td>
             </tr>
 
