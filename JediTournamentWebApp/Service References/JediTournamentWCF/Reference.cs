@@ -100,7 +100,13 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DefinitionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NomField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ValeurField;
@@ -116,6 +122,19 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Definition {
+            get {
+                return this.DefinitionField;
+            }
+            set {
+                if ((this.DefinitionField.Equals(value) != true)) {
+                    this.DefinitionField = value;
+                    this.RaisePropertyChanged("Definition");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Nom {
             get {
                 return this.NomField;
@@ -124,6 +143,19 @@ namespace JediTournamentWebApp.JediTournamentWCF {
                 if ((object.ReferenceEquals(this.NomField, value) != true)) {
                     this.NomField = value;
                     this.RaisePropertyChanged("Nom");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((this.TypeField.Equals(value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
                 }
             }
         }
@@ -326,16 +358,49 @@ namespace JediTournamentWebApp.JediTournamentWCF {
     public enum EPhaseTournoi : int {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        HuitiemeFinale = 0,
+        HuitiemeFinale1 = 14,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        QuartFinale = 1,
+        HuitiemeFinale2 = 13,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        DemiFinale = 2,
+        HuitiemeFinale3 = 12,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Finale = 3,
+        HuitiemeFinale4 = 11,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale5 = 10,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale6 = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale7 = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HuitiemeFinale8 = 7,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale1 = 6,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale2 = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale3 = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        QuartFinale4 = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DemiFinale1 = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DemiFinale2 = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Finale = 0,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -377,6 +442,12 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/getJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/getJedisResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF>> getJedisAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/updateJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/updateJedisResponse")]
+        bool updateJedis(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/updateJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/updateJedisResponse")]
+        System.Threading.Tasks.Task<bool> updateJedisAsync(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/getStades", ReplyAction="http://tempuri.org/IServiceJediTournament/getStadesResponse")]
         System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.StadeWCF> getStades();
         
@@ -400,12 +471,6 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/getCaracs", ReplyAction="http://tempuri.org/IServiceJediTournament/getCaracsResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.CaracteristiqueWCF>> getCaracsAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/AddJedi", ReplyAction="http://tempuri.org/IServiceJediTournament/AddJediResponse")]
-        bool AddJedi(JediTournamentWebApp.JediTournamentWCF.JediWCF jedi);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/AddJedi", ReplyAction="http://tempuri.org/IServiceJediTournament/AddJediResponse")]
-        System.Threading.Tasks.Task<bool> AddJediAsync(JediTournamentWebApp.JediTournamentWCF.JediWCF jedi);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -443,6 +508,14 @@ namespace JediTournamentWebApp.JediTournamentWCF {
             return base.Channel.getJedisAsync();
         }
         
+        public bool updateJedis(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList) {
+            return base.Channel.updateJedis(jediList);
+        }
+        
+        public System.Threading.Tasks.Task<bool> updateJedisAsync(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList) {
+            return base.Channel.updateJedisAsync(jediList);
+        }
+        
         public System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.StadeWCF> getStades() {
             return base.Channel.getStades();
         }
@@ -473,14 +546,6 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.CaracteristiqueWCF>> getCaracsAsync() {
             return base.Channel.getCaracsAsync();
-        }
-        
-        public bool AddJedi(JediTournamentWebApp.JediTournamentWCF.JediWCF jedi) {
-            return base.Channel.AddJedi(jedi);
-        }
-        
-        public System.Threading.Tasks.Task<bool> AddJediAsync(JediTournamentWebApp.JediTournamentWCF.JediWCF jedi) {
-            return base.Channel.AddJediAsync(jedi);
         }
     }
 }

@@ -10,19 +10,19 @@ namespace JediTournamentWebApp.Models {
         public string Nom { get; set; }
         public bool IsSith { get; set; }
 
+        public List<CaracWebModel> Caracteristiques { get; set; }
         public JediWebModel(JediWCF j) {
             Nom = j.Nom;
             IsSith = j.IsSith;
 
-            /*if (j.Caracteristiques != null) {
-                Caracteristiques = new List<CaracteristiqueWCF>();
-                foreach (Caracteristique c in j.Caracteristiques) {
-                    Caracteristiques.Add(new CaracteristiqueWCF(c));
+            // Adaptation caractéristiques
+            Caracteristiques = new List<CaracWebModel>();
+
+            if (j.Caracteristiques != null) {
+                foreach (CaracteristiqueWCF c in j.Caracteristiques) {
+                    Caracteristiques.Add(new CaracWebModel(c));
                 }
             }
-            else
-                Caracteristiques = null;
-                */
         }
     }
 }

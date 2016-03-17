@@ -1,4 +1,5 @@
 ﻿body {
+    background-image : url("background.jpg");
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,10 +23,33 @@ textarea {
 }
 
 .button-area {
+    display : block;
+    position : relative;
     margin-right : auto;
     margin-left : auto;
+    margin-top : 50px;
+    text-align:center;
 }
 
+/* Edit table */
+
 .gestion-table {
-    
+    margin-top : 100px;
+}
+
+.select-column, .edit-column {
+    width : 20px;
+}
+
+.item td img {
+    display : block;
+    width : 20px;
+    height : 20px;
+    cursor : pointer;
+    margin-left : auto;
+    margin-right : auto;
+}
+
+.caracteristiques {
+    display : none;
 }

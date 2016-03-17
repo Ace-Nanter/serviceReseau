@@ -22,7 +22,6 @@ namespace JediTournamentWebApp.Controllers
                 localList.Add(new JediWebModel(j));
             }
 
-
             return View(localList);
         }
 

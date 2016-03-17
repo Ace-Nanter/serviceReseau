@@ -1,31 +1,77 @@
-﻿@Styles.Render("~/Content/css")
+﻿@{
+    ViewBag.Title = "Gestion Jedis";
+}
+
+@Styles.Render("~/Content/css")
+
 @model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/select.js")"></script>
+<script src="@Url.Content("~/Scripts/expand.js")"></script>
+}
+
+@if (Model != null) {
+    <table class="table table-striped gestion-table">
+        <thead>
+            <tr>
+                <th class="select-column"><input type="checkbox" /></th>
+                <th class="label-primary">Nom des jedis</th>
+                <th class="edit-column label-primary">Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="item">
+                    <td><input type="checkbox" /></td>
+                    <td class="extendables">
+                        <label>
+                            @Html.DisplayFor(Model => item.Nom)
+                        </label>
+                        <table class="table table-bordered caracteristiques">
+                            <thead>
+                                <tr>
+                                    <th class="label-primary">Nom</th>
+                                    <th class="label-primary">Définition</th>
+                                    <th class="label-primary">Valeur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in item.Caracteristiques) {
+                                    <tr class="item">
+                                        <td>
+                                            @Html.DisplayFor(Model => c.Nom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => c.Definition)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(Model => c.Valeur)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+                        @*Table dans un table : select caracteristiques*@
+                    </td>
+                    <td><img src="~/Content/edit.png" /></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+else {
+    <p>There is no jedi available !</p>
+}
 
 <div class="button-area">
     <button class="btn btn-lg btn-success" type="button">Add</button>
-    <button class="btn btn-lg btn-warning" type="button">Modify</button>
     <button class="btn btn-lg btn-danger" type="button">Remove</button>
 </div>
 
-<table class="table table-bordered gestion-table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(Model => item.Nom)
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-
-                    @*Table dans un table : select caracteristiques*@
-                </td>
-            </tr>
-
-        }
-    </tbody>
-</table>
