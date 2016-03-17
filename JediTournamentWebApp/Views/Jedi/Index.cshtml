@@ -1,77 +1,79 @@
-﻿@{
-    ViewBag.Title = "Gestion Jedis";
-}
+﻿@model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
+
+@{ ViewBag.Title = "Gestion Jedis"; }
 
 @Styles.Render("~/Content/css")
 
-@model IEnumerable<JediTournamentWebApp.Models.JediWebModel>
-
 @section Scripts
 {
-    <script src="@Url.Content("~/Scripts/select.js")"></script>
-<script src="@Url.Content("~/Scripts/expand.js")"></script>
+    <script src="@Url.Content("~/Scripts/general.js")"></script>
 }
 
-@if (Model != null) {
-    <table class="table table-striped gestion-table">
-        <thead>
-            <tr>
-                <th class="select-column"><input type="checkbox" /></th>
-                <th class="label-primary">Nom des jedis</th>
-                <th class="edit-column label-primary">Modifier</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
-                <tr class="item">
-                    <td><input type="checkbox" /></td>
-                    <td class="extendables">
-                        <label>
-                            @Html.DisplayFor(Model => item.Nom)
-                        </label>
-                        <table class="table table-bordered caracteristiques">
-                            <thead>
-                                <tr>
-                                    <th class="label-primary">Nom</th>
-                                    <th class="label-primary">Définition</th>
-                                    <th class="label-primary">Valeur</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var c in item.Caracteristiques) {
-                                    <tr class="item">
-                                        <td>
-                                            @Html.DisplayFor(Model => c.Nom)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(Model => c.Definition)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(Model => c.Valeur)
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
 
-                        @*Table dans un table : select caracteristiques*@
-                    </td>
-                    <td><img src="~/Content/edit.png" /></td>
+@{ Html.BeginForm("Delete", "Jedi", FormMethod.Post, new { name = "tableForm" }); }
+    @if (Model != null) {
+        <table class="table table-striped gestion-table">
+            <thead>
+                <tr>
+                    <th class="select-column"><input type="checkbox" /></th>
+                    <th class="label-primary">Nom des jedis</th>
+                    <th class="edit-column label-primary">Modifier</th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr class="item">
+                        <td><input type="checkbox" name="deleteInputs" value="@item.Id"/></td>
+                        <td class="extendables">
+                            <label>
+                                @Html.DisplayFor(Model => item.Nom)
+                            </label>
+                            <div class="caracteristiques">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="label-primary">Nom</th>
+                                            <th class="label-primary">Définition</th>
+                                            <th class="label-primary">Valeur</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var c in item.Caracteristiques) {
+                                            <tr class="item">
+                                                <td>
+                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Nom)"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Definition)" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Valeur)" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                        <td><img src="~/Content/edit.png" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            }
-        </tbody>
-    </table>
-}
-else {
+        <a href="javascript:(function(){document.tableForm.submit();return void(0);})()"
+           id="removeButton" class="btn btn-lg btn-danger">Remove</a>
+    }
+    else {
     <p>There is no jedi available !</p>
-}
+    }
+    @{Html.EndForm(); }
 
-<div class="button-area">
-    <button class="btn btn-lg btn-success" type="button">Add</button>
-    <button class="btn btn-lg btn-danger" type="button">Remove</button>
+
+<div class="creation-area">
+    <h3>Add a jedi</h3>
+    <!-- TODO : to fill -->
+    <button id="createButton" class="btn btn-lg btn-success" type="button">Add</button>
+
 </div>
 

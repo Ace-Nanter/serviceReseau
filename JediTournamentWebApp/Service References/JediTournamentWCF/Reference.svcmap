@@ -28,6 +28,7 @@
     <MetadataFile FileName="ServiceJediTournament.xsd" MetadataType="Schema" ID="ceba3e39-ace4-40bf-b573-0fe9175e9e00" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd1" />
     <MetadataFile FileName="ServiceJediTournament.disco" MetadataType="Disco" ID="eec26860-628e-48c7-a85a-4be70f6d18ce" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?disco" />
     <MetadataFile FileName="ServiceJediTournament1.xsd" MetadataType="Schema" ID="c9260319-ae2e-4ca9-abab-cdb8e299110e" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServiceJediTournament4.xsd" MetadataType="Schema" ID="660bab35-76c3-43b5-8496-ea6fa407058c" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd4" />
     <MetadataFile FileName="ServiceJediTournament2.xsd" MetadataType="Schema" ID="d0a060c3-6edb-48f9-a308-daba0361310b" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd0" />
     <MetadataFile FileName="ServiceJediTournament3.xsd" MetadataType="Schema" ID="c0aef144-d7b7-4416-ac74-fce3cdd6ffb5" SourceId="1" SourceUrl="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd2" />
   </Metadata>

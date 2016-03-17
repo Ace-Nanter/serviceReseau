@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace JediTournamentWebApp.Models {
     public class JediWebModel {
+
+        public int Id { get; set; }
         public string Nom { get; set; }
         public bool IsSith { get; set; }
 
         public List<CaracWebModel> Caracteristiques { get; set; }
         public JediWebModel(JediWCF j) {
+            Id = j.Id;
             Nom = j.Nom;
             IsSith = j.IsSith;
 

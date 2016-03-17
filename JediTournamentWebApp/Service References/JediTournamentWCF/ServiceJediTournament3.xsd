@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/EntitiesLayer" />
+  <xs:import schemaLocation="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/EntitiesLayer" />
   <xs:complexType name="ArrayOfJediWCF">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="JediWCF" nillable="true" type="tns:JediWCF" />
@@ -10,6 +10,7 @@
   <xs:complexType name="JediWCF">
     <xs:sequence>
       <xs:element minOccurs="0" name="Caracteristiques" nillable="true" type="tns:ArrayOfCaracteristiqueWCF" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="IsSith" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nom" nillable="true" type="xs:string" />
     </xs:sequence>

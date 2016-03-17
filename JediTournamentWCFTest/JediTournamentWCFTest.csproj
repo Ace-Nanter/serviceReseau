@@ -97,6 +97,9 @@
     <None Include="Service References\ServiceJediTournamentEntities\ServiceJediTournament3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceJediTournamentEntities\ServiceJediTournament4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceJediTournamentEntities\" />

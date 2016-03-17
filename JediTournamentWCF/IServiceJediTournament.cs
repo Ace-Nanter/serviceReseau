@@ -21,6 +21,15 @@ namespace JediTournamentWCF {
 
         [OperationContract]
         bool updateJedis(List<JediWCF> jediList);
+
+        /// <summary>
+        /// Remove the jedis in the given list.
+        /// </summary>
+        /// <param name="removeList">List of the jedis to remove.</param>
+        /// <returns>True if it is a success, otherwise false.</returns>
+        [OperationContract]
+        bool removeJedis(List<int> removeList);
+
         #endregion
 
         /// <summary>

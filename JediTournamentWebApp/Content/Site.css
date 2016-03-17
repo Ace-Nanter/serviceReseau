@@ -15,22 +15,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    
-}
-
-.button-area {
-    display : block;
-    position : relative;
-    margin-right : auto;
-    margin-left : auto;
-    margin-top : 50px;
-    text-align:center;
-}
-
 /* Edit table */
 
 .gestion-table {
@@ -41,15 +25,43 @@ textarea {
     width : 20px;
 }
 
+.item label {
+    cursor : pointer;
+}
+
 .item td img {
     display : block;
     width : 20px;
     height : 20px;
-    cursor : pointer;
     margin-left : auto;
     margin-right : auto;
+    cursor : pointer;
 }
 
 .caracteristiques {
     display : none;
+}
+
+input {
+    border : none;
+    background : none;
+    color : white;
+}
+
+/* End edit table */
+
+#removeButton, #createButton {
+    display : block;
+    position : relative;
+    margin-left : auto;
+    margin-right : auto;
+}
+
+/* Creation table */
+
+.creation-area h3 {
+    display : block;
+    position : relative;
+    margin-top : 80px;
+    text-align : center;
 }

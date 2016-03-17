@@ -13,16 +13,22 @@ namespace JediTournamentWebApp.Controllers
         // GET: Jedi
         public ActionResult Index()
         {
-            ServiceJediTournamentClient client = new ServiceJediTournamentClient();
-            List<JediWCF> webList = client.getJedis();
-            List<JediWebModel> localList = new List<JediWebModel>();
+            try {
+                using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                    List<JediWCF> webList = client.getJedis();
+                    List<JediWebModel> localList = new List<JediWebModel>();
+                    
+                    foreach (JediWCF j in webList) {
+                        localList.Add(new JediWebModel(j));
+                    }
 
-
-            foreach(JediWCF j in webList) {
-                localList.Add(new JediWebModel(j));
+                    return View(localList);
+                }
             }
-
-            return View(localList);
+            catch {
+                return View();
+            }
+            
         }
 
         // GET: Jedi/Details/5
@@ -75,26 +81,39 @@ namespace JediTournamentWebApp.Controllers
             }
         }
 
-        // GET: Jedi/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: Jedi/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(string[] deleteInputs) {
 
-                return RedirectToAction("Index");
+            List<int> id = null;
+            #region Conversion en int
+            if (deleteInputs != null) {
+                id = new List<int>();
+                int tmp;
+
+                foreach (string i in deleteInputs) {
+                    int.TryParse(i, out tmp);
+                    id.Add(tmp);
+                }
             }
-            catch
-            {
-                return View();
+            #endregion
+
+            if(id != null && id.Count > 0) {
+                try {
+                    using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                        client.removeJedis(id);
+                        // TODO : to modify
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                catch {
+                    return RedirectToAction("Index");
+                    //return Json(new { status = "Success", message = "Success" });
+                }
             }
+                
+            return RedirectToAction("Index");
         }
     }
 }

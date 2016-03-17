@@ -1,4 +1,15 @@
-﻿CREATE TABLE [dbo].[Caracteristiques] (
+﻿DROP TABLE Users
+DROP TABLE Caracteristiques
+DROP TABLE Stades
+DROP TABLE Jedis
+DROP TABLE Matches
+DROP TABLE Tournois
+DROP TABLE JediCarac
+DROP TABLE StadeCarac
+DROP TABLE MatchTournoi
+
+
+CREATE TABLE [dbo].[Caracteristiques] (
     [Id]     INT          NOT NULL,
     [Nom]    VARCHAR (32) NOT NULL,
     [Def]    VARCHAR (32) NOT NULL,

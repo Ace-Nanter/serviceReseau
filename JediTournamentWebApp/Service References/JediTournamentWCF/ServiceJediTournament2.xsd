@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" />
+  <xs:import schemaLocation="http://localhost:3018/ServiceJediTournament.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="getJedis">
     <xs:complexType>
       <xs:sequence />
@@ -27,6 +28,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="removeJedis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="removeList" nillable="true" type="q3:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="removeJedisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="removeJedisResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="getStades">
     <xs:complexType>
       <xs:sequence />
@@ -35,7 +50,7 @@
   <xs:element name="getStadesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getStadesResult" nillable="true" type="q3:ArrayOfStadeWCF" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getStadesResult" nillable="true" type="q4:ArrayOfStadeWCF" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -47,7 +62,7 @@
   <xs:element name="getMatchsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getMatchsResult" nillable="true" type="q4:ArrayOfMatchWCF" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getMatchsResult" nillable="true" type="q5:ArrayOfMatchWCF" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -59,7 +74,7 @@
   <xs:element name="getTournoisResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getTournoisResult" nillable="true" type="q5:ArrayOfTournoiWCF" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getTournoisResult" nillable="true" type="q6:ArrayOfTournoiWCF" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -71,7 +86,7 @@
   <xs:element name="getCaracsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getCaracsResult" nillable="true" type="q6:ArrayOfCaracteristiqueWCF" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/JediTournamentWCF.EntitiesWCF" minOccurs="0" name="getCaracsResult" nillable="true" type="q7:ArrayOfCaracteristiqueWCF" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

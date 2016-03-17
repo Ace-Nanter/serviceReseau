@@ -202,7 +202,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\expand.js" />
+    <Content Include="Scripts\general.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -213,7 +213,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\select.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Service References\JediTournamentWCF\JediTournamentWebApp.JediTournamentWCF.CaracteristiqueWCF.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -283,6 +282,9 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Jedi\Index.cshtml" />
+    <None Include="Service References\JediTournamentWCF\ServiceJediTournament4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -44,6 +44,32 @@ namespace JediTournamentWCF {
             return flag;
         }
 
+        /// <summary>
+        /// Permet de supprimer les jedis donnés
+        /// </summary>
+        /// <param name="ids">Jedis à supprimer</param>
+        /// <returns>Retourne vrai si c'est un succès, faux sinon.</returns>
+        bool IServiceJediTournament.removeJedis(List<int> ids) {
+
+            bool flag = true;
+            List<Jedi> values = new List<Jedi>();
+            JediTournamentManager manager = new JediTournamentManager();
+
+            foreach(Jedi j in manager.getJedis()) {
+                if(!ids.Contains(j.Id)) {
+                    values.Add(j);
+                }
+            }
+
+            try {
+                manager.updateJedis(values);
+            }
+            catch {
+                flag = false;
+            }
+
+            return flag;
+        }
         #endregion
 
         #region Caractéristiques

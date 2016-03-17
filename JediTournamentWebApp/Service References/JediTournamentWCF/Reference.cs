@@ -26,6 +26,9 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         private System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.CaracteristiqueWCF> CaracteristiquesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsSithField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -50,6 +53,19 @@ namespace JediTournamentWebApp.JediTournamentWCF {
                 if ((object.ReferenceEquals(this.CaracteristiquesField, value) != true)) {
                     this.CaracteristiquesField = value;
                     this.RaisePropertyChanged("Caracteristiques");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
                 }
             }
         }
@@ -448,6 +464,12 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/updateJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/updateJedisResponse")]
         System.Threading.Tasks.Task<bool> updateJedisAsync(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/removeJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/removeJedisResponse")]
+        bool removeJedis(System.Collections.Generic.List<int> removeList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/removeJedis", ReplyAction="http://tempuri.org/IServiceJediTournament/removeJedisResponse")]
+        System.Threading.Tasks.Task<bool> removeJedisAsync(System.Collections.Generic.List<int> removeList);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceJediTournament/getStades", ReplyAction="http://tempuri.org/IServiceJediTournament/getStadesResponse")]
         System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.StadeWCF> getStades();
         
@@ -514,6 +536,14 @@ namespace JediTournamentWebApp.JediTournamentWCF {
         
         public System.Threading.Tasks.Task<bool> updateJedisAsync(System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.JediWCF> jediList) {
             return base.Channel.updateJedisAsync(jediList);
+        }
+        
+        public bool removeJedis(System.Collections.Generic.List<int> removeList) {
+            return base.Channel.removeJedis(removeList);
+        }
+        
+        public System.Threading.Tasks.Task<bool> removeJedisAsync(System.Collections.Generic.List<int> removeList) {
+            return base.Channel.removeJedisAsync(removeList);
         }
         
         public System.Collections.Generic.List<JediTournamentWebApp.JediTournamentWCF.StadeWCF> getStades() {
