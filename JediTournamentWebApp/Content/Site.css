@@ -1,5 +1,5 @@
 ﻿body {
-    background-image : url("background.jpg");
+    background-image: url("Pics/background.jpg");
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -15,53 +15,118 @@
     white-space: normal;
 }
 
+/* Errors */
+.errors {
+    display: block;
+    position: relative;
+    margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding: 10px;
+    border: 2px solid red;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+}
+
 /* Edit table */
 
 .gestion-table {
-    margin-top : 100px;
+    margin-top: 100px;
 }
 
-.select-column, .edit-column {
-    width : 20px;
+.logo-column img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.select-column, .edit-column, .logo-column {
+    width: 20px;
+}
+
+    .edit-column img {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        cursor: pointer;
+    }
 
 .item label {
-    cursor : pointer;
-}
-
-.item td img {
-    display : block;
-    width : 20px;
-    height : 20px;
-    margin-left : auto;
-    margin-right : auto;
-    cursor : pointer;
+    cursor: pointer;
 }
 
 .caracteristiques {
-    display : none;
+    display: none;
 }
 
 input {
-    border : none;
-    background : none;
-    color : white;
+    border: none;
+    background: none;
+    color: white;
 }
 
 /* End edit table */
 
 #removeButton, #createButton {
-    display : block;
-    position : relative;
-    margin-left : auto;
-    margin-right : auto;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Creation table */
 
-.creation-area h3 {
+.panel-info {
+    margin-top: 50px;
+}
+
+.panel-heading {
+    text-align: center;
+    font-size: 18px;
+}
+
+.creation-main {
     display : block;
     position : relative;
-    margin-top : 80px;
+    margin-bottom : 20px;
+    text-align : center;
+}
+
+.creation-main img {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.creation-main label {
+    display: inline-block;
+    position: relative;
+}
+
+.creation-main input[type=text] {
+    width : 60%;
+    margin-left : 20px;
+    background-color : white;
+    color : black;
+}
+
+.creation-caracs {
+    display : block;
+    position: relative;
+    width : 100%;
+    text-align : center;
+}
+
+.creation-caracs table * {
     text-align : center;
 }

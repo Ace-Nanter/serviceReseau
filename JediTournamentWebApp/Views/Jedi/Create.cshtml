@@ -1,0 +1,41 @@
+﻿@model JediTournamentWebApp.Models.JediWebModel
+@Html.ValidationSummary(true)
+
+@{ Html.BeginForm("Create", "Jedi", FormMethod.Post, new { name = "CreateForm" }); }
+
+<div class="panel panel-info">
+    <div class="panel-heading">Add a jedi</div>
+    <div class="creation-main">
+        <span id="factionChooser" title="Click to change the faction">
+            <img src="~/Content/Pics/logo_alliance.png" />
+            <img src="~/Content/Pics/logo_empire.png"/>
+        </span>
+
+        <input id="factionChecker" name="IsSith" type="checkbox" hidden="hidden"/>
+        
+        
+        @Html.LabelFor(Model => Model.Nom)
+        @Html.EditorFor(Model => Model.Nom)
+    </div>
+    <div class="creation-caracs">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Definition</th>
+                    <th>Value</th>
+                    <th><button id="AddCaracButton">+</button></th>
+                </tr>
+            </thead>
+            <tbody id="CaracsContainer">
+                <!-- Here will be added the characteristics -->
+            </tbody>
+        </table>
+    </div>
+    <a href="javascript:(function(){document.CreateForm.submit();return void(0);})()"
+       id="createButton" class="btn btn-lg btn-success">Add a new Jedi</a>
+</div>
+
+@{Html.EndForm(); }
+

@@ -1,0 +1,19 @@
+﻿@model int
+
+<tr>
+    <td>
+        <input type="text" name="Caracteristiques[@Model.ToString()].Id" value="@Model.ToString()" readonly="readonly"/>
+    </td>
+    <td>
+        <input type="text" name="Caracteristiques[@Model.ToString()].Name" />
+    </td>
+    <td>
+        @Html.DropDownList("DefCaracWeb", 
+            EnumHelper.GetSelectList(typeof(JediTournamentWebApp.Models.DefCaracWeb)),
+            "Select a Definition")
+    <td>
+        <input type="number" name="Caracteristiques[@Model.ToString()].Value" min="1" max="100"/>
+    </td>
+</tr>
+
+

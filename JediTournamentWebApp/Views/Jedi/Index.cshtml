@@ -9,6 +9,12 @@
     <script src="@Url.Content("~/Scripts/general.js")"></script>
 }
 
+@if (ViewData["error"] != null) {
+    <div class="alert alert-danger">@ViewData["error"]</div>
+}
+else {
+    <div class="alert alert-success">Action(s) completed</div>
+}
 
 @{ Html.BeginForm("Delete", "Jedi", FormMethod.Post, new { name = "tableForm" }); }
     @if (Model != null) {
@@ -16,14 +22,23 @@
             <thead>
                 <tr>
                     <th class="select-column"><input type="checkbox" /></th>
-                    <th class="label-primary">Nom des jedis</th>
-                    <th class="edit-column label-primary">Modifier</th>
+                    <th></th>
+                    <th class="label-primary">Jedi's Names</th>
+                    <th class="edit-column label-primary">Edit</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model) {
                     <tr class="item">
                         <td><input type="checkbox" name="deleteInputs" value="@item.Id"/></td>
+                        <td class="logo-column">
+                            @if(item.IsSith) {
+                                <img src="~/Content/Pics/logo_empire.png"/>
+                            }
+                            else {
+                                <img src="~/Content/Pics/logo_alliance.png" />
+                            }
+                        </td>
                         <td class="extendables">
                             <label>
                                 @Html.DisplayFor(Model => item.Nom)
@@ -32,30 +47,24 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="label-primary">Nom</th>
-                                            <th class="label-primary">Définition</th>
-                                            <th class="label-primary">Valeur</th>
+                                            <th class="label-primary">Name</th>
+                                            <th class="label-primary">Definition</th>
+                                            <th class="label-primary">Value</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var c in item.Caracteristiques) {
                                             <tr class="item">
-                                                <td>
-                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Nom)"/>
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Definition)" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" disabled="disabled" value="@Html.DisplayFor(Model => c.Valeur)" />
-                                                </td>
+                                                <td>@Html.DisplayFor(Model => c.Nom)</td>
+                                                <td>@Html.DisplayFor(Model => c.Definition)</td>
+                                                <td>@Html.DisplayFor(Model => c.Valeur)</td>
                                             </tr>
                                         }
                                     </tbody>
                                 </table>
                             </div>
                         </td>
-                        <td><img src="~/Content/edit.png" /></td>
+                        <td class ="edit-column"><img src="~/Content/Pics/edit.png" /></td>
                     </tr>
                 }
             </tbody>
@@ -67,13 +76,7 @@
     else {
     <p>There is no jedi available !</p>
     }
-    @{Html.EndForm(); }
+@{Html.EndForm(); }
 
-
-<div class="creation-area">
-    <h3>Add a jedi</h3>
-    <!-- TODO : to fill -->
-    <button id="createButton" class="btn btn-lg btn-success" type="button">Add</button>
-
-</div>
+@{Html.RenderAction("Create"); }
 

@@ -10,6 +10,8 @@ namespace JediTournamentWebApp.Controllers
 {
     public class JediController : Controller
     {
+
+        #region Index
         // GET: Jedi
         public ActionResult Index()
         {
@@ -20,6 +22,13 @@ namespace JediTournamentWebApp.Controllers
                     
                     foreach (JediWCF j in webList) {
                         localList.Add(new JediWebModel(j));
+                    }
+
+                    if(TempData["error"] != null) {
+                        ViewData["error"] = TempData["error"];
+                    }
+                    else {
+                        ViewData["error"] = null;
                     }
 
                     return View(localList);
@@ -37,27 +46,43 @@ namespace JediTournamentWebApp.Controllers
             return View();
         }
 
+        #endregion
+        #region Creation
         // GET: Jedi/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView(new JediWebModel());
         }
 
         // POST: Jedi/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(JediWebModel jedi)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            if(ModelState.IsValid) {
+                try {
+                    using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                        
 
-                return RedirectToAction("Index");
+                        List<JediWCF> list = client.getJedis();
+                        JediWCF j = jedi.convert(list[list.Count - 1].Id + 1);
+                        list.Add(j);
+                        client.updateJedis(list);
+                        client.Close();
+                    }
+                }
+                catch {
+                    TempData["error"] = "Adding error !";
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return RedirectToAction("Index");
         }
+
+        public ActionResult AddCarac(int index) {
+
+            return PartialView(model: index);
+        }
+        #endregion 
 
         // GET: Jedi/Edit/5
         public ActionResult Edit(int id)
@@ -104,12 +129,11 @@ namespace JediTournamentWebApp.Controllers
                         client.removeJedis(id);
                         // TODO : to modify
                     }
-
                     return RedirectToAction("Index");
                 }
                 catch {
+                    TempData["error"] = "Delete error !";
                     return RedirectToAction("Index");
-                    //return Json(new { status = "Success", message = "Success" });
                 }
             }
                 

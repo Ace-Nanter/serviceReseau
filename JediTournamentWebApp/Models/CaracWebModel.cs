@@ -9,38 +9,40 @@ using System.Threading.Tasks;
 namespace JediTournamentWebApp.Models {
     public class CaracWebModel {
         
+        [Key]
+        public int Id { get; set; }
+
         [Required]
+        [Display(Name = "Name")]
         public string Nom { get; set; }
 
         [Required]
-        public string Definition { get; set; }
+        [Display(Name = "Definition")]
+        public DefCaracWeb Definition { get; set; }
         
         [Required]
+        [Display(Name = "Value")]
+        [Range(0, 100)]
         public int Valeur { get; set; }
         
         [Required]
         public int Type { get; set; }
-        public CaracWebModel(CaracteristiqueWCF c) {
-
+        public CaracWebModel(CaracteristiqueWCF c, int i) {
+            Id = i;
             Nom = c.Nom;
             Valeur = c.Valeur;
-
-            switch(c.Definition) {
-                case 0:
-                    Definition = "Strength";
-                    break;
-                case 1:
-                    Definition = "Dexterity";
-                    break;
-                case 2:
-                    Definition = "Perception";
-                    break;
-                default:
-                    Definition = "Unknown";
-                    break;
-            }
-
+            Definition = (DefCaracWeb) c.Definition;
             Type = c.Type;
+        }
+
+        public CaracteristiqueWCF convert() {
+            CaracteristiqueWCF c = new CaracteristiqueWCF();
+            c.Definition = (int)this.Definition;
+            c.Nom = this.Nom;
+            c.Valeur = this.Valeur;
+            c.Type = this.Type;
+
+            return c;
         }
     }
 }
