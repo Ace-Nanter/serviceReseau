@@ -11,33 +11,109 @@ namespace JediTournamentWCF {
     [ServiceContract]
     public interface IServiceJediTournament {
 
-        #region Jedis
+        #region Caracteristiques
         /// <summary>
-        /// Get the Jedis list.
+        /// Récupère la liste des caractéristiques
         /// </summary>
-        /// <returns>List of Jedis.</returns>
+        /// <returns>La liste des caractéristiques</returns>
         [OperationContract]
-        List<JediWCF> getJedis();
-
-        [OperationContract]
-        bool updateJedis(List<JediWCF> jediList);
+        List<CaracteristiqueWCF> getCaracs();
 
         /// <summary>
-        /// Remove the jedis in the given list.
+        /// Ajoute une nouvelle caracteristique
         /// </summary>
-        /// <param name="removeList">List of the jedis to remove.</param>
-        /// <returns>True if it is a success, otherwise false.</returns>
+        /// <param name="item">Caracteristique à ajouter</param>
+        /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
         [OperationContract]
-        bool removeJedis(List<int> removeList);
+        bool newCarac(CaracteristiqueWCF item);
+
+        /// <summary>
+        /// Supprime les caractéristiques dont les IDs sont donnés en paramètre
+        /// </summary>
+        /// <param name="removeList">Liste des IDs des caractéristiques à supprimer</param>
+        /// <returns>Vrai si succès, sinon faux</returns>
+        [OperationContract]
+        bool removeCarac(List<int> removeList);
+
+        /// <summary>
+        /// Modifie la liste des caractéristiques par celle donnée en argument
+        /// </summary>
+        /// <param name="listCaracs">Nouvelle liste de caractéristiques</param>
+        /// <returns>Vrai si la mise à jour a bien eu lieu, faux sinon</returns>
+        [OperationContract]
+        bool updateCaracs(List<CaracteristiqueWCF> caracList);
 
         #endregion
 
+        #region Jedis
+
         /// <summary>
-        /// Get the Stades list.
+        /// Récupère la liste des jedis
         /// </summary>
-        /// <returns>List of Stades.</returns>
+        /// <returns>La liste des jedis</returns>
+        [OperationContract]
+        List<JediWCF> getJedis();
+
+        /// <summary>
+        /// Ajoute un nouveau jedi
+        /// </summary>
+        /// <param name="item">Jedi à ajouter</param>
+        /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
+        [OperationContract]
+        bool newJedi(JediWCF item);
+
+        /// <summary>
+        /// Supprime les jedis dont les IDs sont donnés en paramètre
+        /// </summary>
+        /// <param name="removeList">Liste des IDs des jedis à supprimer</param>
+        /// <returns>Vrai si succès, sinon faux</returns>
+        [OperationContract]
+        bool removeJedis(List<int> removeList);
+
+        /// <summary>
+        /// Modifie la liste des jedis par celle donnée en argument
+        /// </summary>
+        /// <param name="jediList">Nouvelle liste de jedis</param>
+        /// <returns>Vrai si la mise à jour a bien eu lieu, faux sinon</returns>
+        [OperationContract]
+        bool updateJedis(List<JediWCF> jediList);
+
+        #endregion
+
+        #region Stades
+
+        /// <summary>
+        /// Récupère la liste des stades
+        /// </summary>
+        /// <returns>La liste des stades</returns>
         [OperationContract]
         List<StadeWCF> getStades();
+
+        /// <summary>
+        /// Ajoute un nouveau stade
+        /// </summary>
+        /// <param name="item">Stade à ajouter</param>
+        /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
+        [OperationContract]
+        bool newStade(StadeWCF item);
+
+        /// <summary>
+        /// Supprime les stades dont les IDs sont donnés en paramètre
+        /// </summary>
+        /// <param name="removeList">Liste des IDs des stades à supprimer</param>
+        /// <returns>Vrai si succès, sinon faux</returns>
+        [OperationContract]
+        bool removeStades(List<int> removeList);
+
+        /// <summary>
+        /// Modifie la liste des stades par celle donnée en argument
+        /// </summary>
+        /// <param name="stadeList">Nouvelle liste de stades</param>
+        /// <returns>Vrai si la mise à jour a bien eu lieu, faux sinon</returns>
+        [OperationContract]
+        bool updateStades(List<StadeWCF> stadeList);
+
+        #endregion
 
         /// <summary>
         /// Get the Matchs list.
@@ -53,11 +129,5 @@ namespace JediTournamentWCF {
         [OperationContract]
         List<TournoiWCF> getTournois();
 
-        /// <summary>
-        /// Get the caracs list.
-        /// </summary>
-        /// <returns>List of Caracteristics.</returns>
-        [OperationContract]
-        List<CaracteristiqueWCF> getCaracs();
     }
 }

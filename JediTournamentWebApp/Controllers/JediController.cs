@@ -10,7 +10,6 @@ namespace JediTournamentWebApp.Controllers
 {
     public class JediController : Controller
     {
-
         #region Index
         // GET: Jedi
         public ActionResult Index()
@@ -62,7 +61,6 @@ namespace JediTournamentWebApp.Controllers
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
                         
-
                         List<JediWCF> list = client.getJedis();
                         JediWCF j = jedi.convert(list[list.Count - 1].Id + 1);
                         list.Add(j);
@@ -79,7 +77,7 @@ namespace JediTournamentWebApp.Controllers
         }
 
         public ActionResult AddCarac(int index) {
-
+            
             return PartialView(model: index);
         }
         #endregion 

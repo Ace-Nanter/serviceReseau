@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
 
-    
     /* ----- Remove checks ----- */
 
     // Variables
@@ -36,8 +35,7 @@
         $(this).parent().children(".caracteristiques").slideToggle("slow");
         
     });
-    /* ------------------------------*/
-
+    /*-------------------------------*/
     /* -------- Choose faction ------*/
     $("#factionChooser :last-child").hide();
     var faction = false;
@@ -52,7 +50,6 @@
 
 
     /* -------- Add carac -----------*/
-
     $("#AddCaracButton").click(function (e) {
         
         e.preventDefault();
@@ -63,6 +60,7 @@
             url: "/Jedi/AddCarac",
             data: {
                 Index: CaracIndex
+
             },
             success: function (data) {
                 $("#CaracsContainer").append(data);
@@ -74,4 +72,5 @@
 
         CaracIndex++;
     });
+    /*-------------------------------*/
 });

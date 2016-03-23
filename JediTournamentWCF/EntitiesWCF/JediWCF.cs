@@ -39,7 +39,6 @@ namespace JediTournamentWCF.EntitiesWCF {
         /// <summary>
         /// Convert a JediWCF into a Jedi
         /// </summary>
-        /// <param name="i">ID of the created Jedi.</param>
         /// <returns>The Jedi instance of the given JediWCF</returns>
         public Jedi convert() {
             List<Caracteristique> caracList = new List<Caracteristique>();
