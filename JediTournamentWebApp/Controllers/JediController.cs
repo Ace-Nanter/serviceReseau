@@ -55,14 +55,38 @@ namespace JediTournamentWebApp.Controllers
 
         // POST: Jedi/Create
         [HttpPost]
-        public ActionResult Create(JediWebModel jedi)
+        public ActionResult Create(JediWebModel jedi, int[] caracIds)
         {
             if(ModelState.IsValid) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+
+                        List<CaracWebModel> caracList = new List<CaracWebModel>();
+                        JediWebModel toAdd = jedi;
+                        // Récupération caractéristiques si nécessaire
+                        if (caracIds != null && caracIds.Length > 0) {
+                            List<CaracteristiqueWCF> webList = client.getCaracs();
+                            
+
+                            // Pour chaque caractéristique voulue
+                            foreach (int id in caracIds) {
+                                // On cherche la caractéristique correspondante
+                                foreach (CaracteristiqueWCF c in webList) {
+                                    if (c.Id == id) {
+                                        caracList.Add(new CaracWebModel(c));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         List<JediWCF> list = client.getJedis();
-                        JediWCF j = jedi.convert(list[list.Count - 1].Id + 1);
+
+                        // Création du JediWCF
+                        toAdd.Caracteristiques = caracList;
+                        int newId = list.Max(o => o.Id);
+                        JediWCF j = jedi.convert(newId + 1);
                         list.Add(j);
+
                         client.updateJedis(list);
                         client.Close();
                     }
@@ -71,12 +95,39 @@ namespace JediTournamentWebApp.Controllers
                     TempData["error"] = "Adding error !";
                 }
             }
+            else {
+                TempData["error"] = "Invalid Model !";
+            }
 
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddCarac(int index) {
-            return PartialView(model: index);
+        public ActionResult AddCarac() {
+            try {
+                using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                    List<CaracteristiqueWCF> webList = client.getCaracs();
+                    List<CaracWebModel> localList = new List<CaracWebModel>();
+
+                    foreach (CaracteristiqueWCF c in webList) {
+                        // Si c'est une caractéristique de Jedi
+                        if(c.Type == 0) {
+                            localList.Add(new CaracWebModel(c));
+                        }
+                    }
+
+                    if (TempData["error"] != null) {
+                        ViewData["error"] = TempData["error"];
+                    }
+                    else {
+                        ViewData["error"] = null;
+                    }
+
+                    return PartialView(localList);
+                }
+            }
+            catch {
+                return null;
+            }
         }
         #endregion 
 

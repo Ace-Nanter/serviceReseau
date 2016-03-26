@@ -17,6 +17,7 @@ else {
 }
 
 @{ Html.BeginForm("Delete", "Carac", FormMethod.Post, new { name = "removeForm" }); }
+
 @if (Model != null) {
     <table class="table table-striped gestion-table">
         <thead>
@@ -57,11 +58,12 @@ else {
     </table>
 
     <a href="javascript:(function(){document.removeForm.submit();return void(0);})()"
-        id="removeButton" class="btn btn-lg btn-danger">Remove</a>
+        id="confirmButton" class="btn btn-lg btn-danger">Remove</a>
 }
 else {
-    <p>There is no characteristics available !</p>
+    <div class="alert alert-danger">There is no characteristics available !</div>
 }
+
 @{Html.EndForm(); }
 
 @{Html.RenderAction("Create"); }

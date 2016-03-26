@@ -50,7 +50,8 @@ namespace JediTournamentWebApp.Controllers
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
                         List<CaracteristiqueWCF> list = client.getCaracs();
-                        CaracteristiqueWCF c = carac.convert(list[list.Count - 1].Id + 1);
+                        int newId = list.Max(o => o.Id);
+                        CaracteristiqueWCF c = carac.convert(newId + 1);
                         list.Add(c);
                         client.updateCaracs(list);
                         client.Close();
@@ -101,18 +102,30 @@ namespace JediTournamentWebApp.Controllers
 
         // POST: Carac/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CaracWebModel carac)
         {
-            try
-            {
-                // TODO: Add update logic here
+            if (ModelState.IsValid) {
+                try {
+                    using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                        List<CaracteristiqueWCF> list = client.getCaracs();
+                        for(int i = 0; i < list.Count; i++) {
+                            // On remplace la caractéristique concernée
+                            if(list[i].Id == carac.Id) {
+                                list[i] = carac.convert(carac.Id);
+                                break;
+                            }
+                        }
+                        
+                        client.updateCaracs(list);
+                        client.Close();
+                    }
+                }
+                catch {
+                    TempData["error"] = "Edit error !";
+                }
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
         // POST: Carac/Delete/5

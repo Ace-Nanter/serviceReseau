@@ -46,6 +46,7 @@
         
         faction = !faction;
         $('#factionChecker').attr('checked', faction);
+        $('#factionChecker').val(faction);
     });
 
 
@@ -58,10 +59,6 @@
             cache: false,
             type: "GET",
             url: "/Jedi/AddCarac",
-            data: {
-                Index: CaracIndex
-
-            },
             success: function (data) {
                 $("#CaracsContainer").append(data);
             },
@@ -86,6 +83,8 @@
             },
             success: function (data) {
                 area.html(data);
+                changeForm();
+                $(".edit-column").off();
             },
             error: function () {
                 alert("Error !");
@@ -93,6 +92,18 @@
         })
 
     });
+
+    function changeForm() {
+
+        // Changement formulaire
+        var form = $('form[name="removeForm"]');
+        form.attr('name', 'editForm');
+        form.attr('action', $(location).attr('pathname') + '/Edit');
+
+        // Changement bouton
+        $("#confirmButton").text("Edit");
+        $("#confirmButton").attr('href', 'javascript:(function(){document.editForm.submit();return void(0);})()');
+    }
 
     /*-------------------------------*/
 });

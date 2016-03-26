@@ -16,7 +16,7 @@ else {
     <div class="alert alert-success">Action(s) completed</div>
 }
 
-@{ Html.BeginForm("Delete", "Jedi", FormMethod.Post, new { name = "tableForm" }); }
+@{ Html.BeginForm("Delete", "Jedi", FormMethod.Post, new { name = "removeForm" }); }
     @if (Model != null) {
         <table class="table table-striped gestion-table">
             <thead>
@@ -70,8 +70,8 @@ else {
             </tbody>
         </table>
 
-        <a href="javascript:(function(){document.tableForm.submit();return void(0);})()"
-           id="removeButton" class="btn btn-lg btn-danger">Remove</a>
+        <a href="javascript:(function(){document.removeForm.submit();return void(0);})()"
+           id="confirmButton" class="btn btn-lg btn-danger">Remove</a>
     }
     else {
     <p>There is no jedi available !</p>

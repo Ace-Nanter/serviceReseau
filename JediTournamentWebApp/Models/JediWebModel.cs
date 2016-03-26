@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace JediTournamentWebApp.Models {
     public class JediWebModel {
 
+        [Key]
         public int Id { get; set; }
 
         [Required]

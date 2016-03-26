@@ -45,7 +45,7 @@
     margin-right: auto;
 }
 
-.select-column, .edit-column, .logo-column {
+.select-column, .edit-column, .check-column, .logo-column {
     width: 20px;
 }
 
@@ -74,7 +74,7 @@ input {
 
 /* End edit table */
 
-#removeButton, #createButton {
+#confirmButton, #createButton {
     display: block;
     position: relative;
     margin-left: auto;
@@ -102,7 +102,6 @@ input {
 }
 
 /* Creation table */
-
 
 .creation-table thead tr th {
     text-align : center;

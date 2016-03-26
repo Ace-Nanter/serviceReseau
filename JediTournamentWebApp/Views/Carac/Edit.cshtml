@@ -2,19 +2,29 @@
 
 @Html.ValidationSummary(true)
 
-@{ Html.BeginForm("Edit", "Carac", FormMethod.Post, new { name = "EditForm" }); }
 
+
+<td>@Html.HiddenFor(Model => Model.Id)</td>
+<td>@Html.EditorFor(Model => Model.Nom)</td>
+<td>
+    <select class="enum-chooser" name="Definition">
+        <option value="0" @((int)Model.Definition == 0 ? " selected" : "")>
+            Strength
+        </option>
+        <option value="1" @((int)Model.Definition == 1 ? " selected" : "")>
+            Dexterity
+        </option>
+        <option value="2" @((int)Model.Definition == 2 ? " selected" : "")>
+            Perception
+        </option>
+    </select>
+</td>
+<td>
+    <select class="enum-chooser" name="Type">
+        <option value="0" @(Model.Type == 0 ? " selected" : "")>Jedi</option>
+        <option value="1" @(Model.Type == 1 ? " selected" : "")>Stade</option>
+    </select>
+</td>
+<td>@Html.EditorFor(Model => Model.Valeur)</td>
 
 <td></td>
-<td>@Html.EditorFor(Model => Model.Nom)</td>
-<td>@Html.DisplayFor(Model => Model.Definition)</td>
-@if (Model.Type == 0) {
-    <td>Jedi</td>
-}
-else {
-    <td>Stade</td>
-}
-<td>@Html.EditorFor(Model => Model.Valeur)</td>
-<td class="check-column"><img src="~/Content/Pics/check.png" /></td>
-
-@{ Html.EndForm(); }
