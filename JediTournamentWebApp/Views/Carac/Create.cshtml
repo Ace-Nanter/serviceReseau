@@ -1,0 +1,51 @@
+﻿@model JediTournamentWebApp.Models.CaracWebModel
+
+@Html.ValidationSummary(true)
+
+@{ Html.BeginForm("Create", "Carac", FormMethod.Post, new { name = "CreateForm" }); }
+
+<div class="panel panel-info">
+    <div class="creation-main">
+        <table class="table creation-table">
+            <thead>
+                <tr>
+                    <th class="label-primary">
+                        @Html.DisplayNameFor(Model => Model.Nom)
+                    </th>
+                    <th class="label-primary">
+                        @Html.DisplayNameFor(Model => Model.Definition)</th>
+                    <th class="label-primary">
+                        @Html.DisplayNameFor(Model => Model.Type)
+                    </th>
+                    <th class="label-primary">
+                        @Html.DisplayNameFor(Model => Model.Valeur)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td>@Html.EditorFor(Model => Model.Nom)</td>
+                    <td>
+                        @Html.DropDownList("DefCaracWeb",
+                        EnumHelper.GetSelectList(typeof(JediTournamentWebApp.Models.DefCaracWeb)),
+                            "Select a definition", new { @class = "enum-chooser", Name="Definition" })
+                    </td>
+                    <td>
+                        <select class="enum-chooser" name="Type">
+                            <option value="">Select a type</option>
+                            <option value="0">Jedi</option>
+                            <option value="1">Stade</option>
+                        </select>
+                    </td>
+                    <td>@Html.EditorFor(Model => Model.Valeur)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="javascript:(function(){document.CreateForm.submit();return void(0);})()"
+       id="createButton" class="btn btn-lg btn-success">Add a new Characteristic</a>
+</div>
+
+@{Html.EndForm(); }
+

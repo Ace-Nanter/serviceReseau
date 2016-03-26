@@ -49,7 +49,7 @@
     width: 20px;
 }
 
-    .edit-column img {
+    .edit-column img, .check-column img {
         display: block;
         width: 20px;
         height: 20px;
@@ -81,7 +81,7 @@ input {
     margin-right: auto;
 }
 
-/* Creation table */
+/* Creation */
 
 .panel-info {
     margin-top: 50px;
@@ -91,13 +91,32 @@ input {
     text-align: center;
     font-size: 18px;
 }
-
 .creation-main {
     display : block;
     position : relative;
+    padding : 1%;
+    margin-top : 20px;
     margin-bottom : 20px;
     text-align : center;
+    color : white;
 }
+
+/* Creation table */
+
+
+.creation-table thead tr th {
+    text-align : center;
+}
+
+.creation-table tbody tr td input, select {
+    width : 100%;
+    text-align : center;
+    color : black;
+    background-color : white;
+}
+
+/* Fin Creation table */
+
 
 .creation-main img {
     display: inline-block;

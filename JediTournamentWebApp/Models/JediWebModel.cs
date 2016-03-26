@@ -45,7 +45,7 @@ namespace JediTournamentWebApp.Models {
             if (j.Caracteristiques != null) {
                 int i = 0;
                 foreach (CaracteristiqueWCF c in j.Caracteristiques) {
-                    Caracteristiques.Add(new CaracWebModel(c, i++));
+                    Caracteristiques.Add(new CaracWebModel(c));
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace JediTournamentWebApp.Models {
             j.Caracteristiques = new List<CaracteristiqueWCF>();
 
             foreach(CaracWebModel c in this.Caracteristiques) {
-                j.Caracteristiques.Add(c.convert());
+                j.Caracteristiques.Add(c.convert(c.Id));
             }
 
             return j;

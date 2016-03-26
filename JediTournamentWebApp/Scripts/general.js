@@ -73,4 +73,26 @@
         CaracIndex++;
     });
     /*-------------------------------*/
+
+    /* ------------ Edit ----------- */
+    $(".edit-column").click(function (e) {
+        var area = $(this).parent(".item");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: $(location).attr('pathname') + "/Edit",
+            data: {
+                id: $(this).parent(".item").find("input").val()
+            },
+            success: function (data) {
+                area.html(data);
+            },
+            error: function () {
+                alert("Error !");
+            }
+        })
+
+    });
+
+    /*-------------------------------*/
 });

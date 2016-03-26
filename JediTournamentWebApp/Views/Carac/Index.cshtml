@@ -1,0 +1,68 @@
+﻿@model IEnumerable<JediTournamentWebApp.Models.CaracWebModel>
+
+@{ ViewBag.Title = "Gestion Caractéristiques"; }
+
+@Styles.Render("~/Content/css")
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/general.js")"></script>
+}
+
+@if (ViewData["error"] != null) {
+    <div class="alert alert-danger">@ViewData["error"]</div>
+}
+else {
+    <div class="alert alert-success">Action(s) completed</div>
+}
+
+@{ Html.BeginForm("Delete", "Carac", FormMethod.Post, new { name = "removeForm" }); }
+@if (Model != null) {
+    <table class="table table-striped gestion-table">
+        <thead>
+            <tr>
+                <th class="select-column"><input type="checkbox" /></th>
+                <th class="label-primary">
+                    @Html.DisplayNameFor(Model => Model.First().Nom)
+                </th>
+                <th class="label-primary">
+                    @Html.DisplayNameFor(Model => Model.First().Definition)
+                </th>
+                <th class="label-primary">
+                    @Html.DisplayNameFor(Model => Model.First().Type)
+                </th>
+                <th class="label-primary">
+                    @Html.DisplayNameFor(Model => Model.First().Valeur)
+                </th>
+                <th class="edit-column label-primary">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="item">
+                    <td><input type="checkbox" name="deleteInputs" value="@item.Id" /></td>                    
+                    <td>@Html.DisplayFor(Model => item.Nom)</td>
+                    <td>@Html.DisplayFor(Model => item.Definition)</td>
+                    @if (item.Type == 0) {
+                        <td>Jedi</td>
+                    }
+                    else {
+                        <td>Stade</td>
+                    }
+                    <td>@Html.DisplayFor(Model => item.Valeur)</td>         
+                    <td class="edit-column"><img src="~/Content/Pics/edit.png" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="javascript:(function(){document.removeForm.submit();return void(0);})()"
+        id="removeButton" class="btn btn-lg btn-danger">Remove</a>
+}
+else {
+    <p>There is no characteristics available !</p>
+}
+@{Html.EndForm(); }
+
+@{Html.RenderAction("Create"); }
+

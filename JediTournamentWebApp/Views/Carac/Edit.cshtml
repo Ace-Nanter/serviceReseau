@@ -1,0 +1,20 @@
+﻿@model JediTournamentWebApp.Models.CaracWebModel
+
+@Html.ValidationSummary(true)
+
+@{ Html.BeginForm("Edit", "Carac", FormMethod.Post, new { name = "EditForm" }); }
+
+
+<td></td>
+<td>@Html.EditorFor(Model => Model.Nom)</td>
+<td>@Html.DisplayFor(Model => Model.Definition)</td>
+@if (Model.Type == 0) {
+    <td>Jedi</td>
+}
+else {
+    <td>Stade</td>
+}
+<td>@Html.EditorFor(Model => Model.Valeur)</td>
+<td class="check-column"><img src="~/Content/Pics/check.png" /></td>
+
+@{ Html.EndForm(); }

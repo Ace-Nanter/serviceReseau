@@ -22,21 +22,28 @@ namespace JediTournamentWebApp.Models {
         
         [Required]
         [Display(Name = "Value")]
-        [Range(0, 100)]
+        [Range(-100, 100)]
         public int Valeur { get; set; }
         
         [Required]
         public int Type { get; set; }
-        public CaracWebModel(CaracteristiqueWCF c, int i) {
-            Id = i;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public CaracWebModel() { }
+
+        public CaracWebModel(CaracteristiqueWCF c) {
+            Id = c.Id;
             Nom = c.Nom;
             Valeur = c.Valeur;
             Definition = (DefCaracWeb) c.Definition;
             Type = c.Type;
         }
 
-        public CaracteristiqueWCF convert() {
+        public CaracteristiqueWCF convert(int id) {
             CaracteristiqueWCF c = new CaracteristiqueWCF();
+            c.Id = id;
             c.Definition = (int)this.Definition;
             c.Nom = this.Nom;
             c.Valeur = this.Valeur;
