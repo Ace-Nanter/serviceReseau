@@ -117,7 +117,7 @@ input {
 /* Fin Creation table */
 
 
-.creation-main img {
+#factionChooser img {
     display: inline-block;
     position: relative;
     width: 50px;

@@ -134,23 +134,89 @@ namespace JediTournamentWebApp.Controllers
         // GET: Jedi/Edit/5
         public ActionResult Edit(int id)
         {
+            JediWebModel item = null;
+            try {
+                using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                    List<JediWCF> webList = client.getJedis();
+
+                    foreach (JediWCF j in webList) {
+                        if (j.Id == id) {
+                            item = new JediWebModel(j);
+                            break;
+                        }
+                    }
+
+                    if (TempData["error"] != null) {
+                        ViewData["error"] = TempData["error"];
+                    }
+                    else {
+                        ViewData["error"] = null;
+                    }
+
+                    // Si on ne trouve pas le Jedi
+                    if (item == null) {
+                        throw new Exception("No way to found the jedi !");
+                    }
+
+                    return PartialView(item);
+                }
+            }
+            catch {
+                return null;
+            }
             return View();
         }
 
         // POST: Jedi/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+        public ActionResult Edit(JediWebModel jedi, int[] caracIds) {
 
-                return RedirectToAction("Index");
+            if (ModelState.IsValid) {
+                try {
+                    using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+
+                        List<CaracWebModel> caracList = new List<CaracWebModel>();
+                        // Récupération caractéristiques si nécessaire
+                        if (caracIds != null && caracIds.Length > 0) {
+                            List<CaracteristiqueWCF> webList = client.getCaracs();
+
+                            // Pour chaque caractéristique voulue
+                            foreach (int id in caracIds) {
+                                // On cherche la caractéristique correspondante
+                                foreach (CaracteristiqueWCF c in webList) {
+                                    if (c.Id == id) {
+                                        caracList.Add(new CaracWebModel(c));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Ajout des caractéristiques
+                        jedi.Caracteristiques = caracList;
+
+                        // Recherche du jedi et mise à jour
+                        List<JediWCF> list = client.getJedis();
+                        for (int i = 0; i < list.Count; i++) {
+                            if(list[i].Id == jedi.Id) {
+                                list[i] = jedi.convert(jedi.Id);
+                                break;
+                            }
+                        }
+
+                        client.updateJedis(list);
+                        client.Close();
+                    }
+                }
+                catch {
+                    TempData["error"] = "Adding error !";
+                }
             }
-            catch
-            {
-                return View();
+            else {
+                TempData["error"] = "Invalid Model !";
             }
+
+            return RedirectToAction("Index");
         }
 
         // POST: Jedi/Delete/5

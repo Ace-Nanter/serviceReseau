@@ -11,7 +11,7 @@
             <img src="~/Content/Pics/logo_empire.png"/>
         </span>
 
-        @Html.HiddenFor(Model => Model.IsSith, new { id="factionChecker"})
+        @Html.HiddenFor(Model => Model.IsSith, new { id="factionChecker" })
         @Html.LabelFor(Model => Model.Nom)
         @Html.EditorFor(Model => Model.Nom)
     </div>
@@ -20,7 +20,10 @@
             <thead>
                 <tr>
                     <th>Caracteristique(s)</th>
-                    <th><button id="AddCaracButton">+</button></th>
+                    <th>
+                        <div id="AddCaracButton" class="btn btn-default">+</div>
+                        <div id="RemoveCaracButton" class="btn btn-default">-</div>
+                    </th>
                 </tr>
             </thead>
             <tbody id="CaracsContainer">

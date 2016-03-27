@@ -35,26 +35,36 @@
         $(this).parent().children(".caracteristiques").slideToggle("slow");
         
     });
-    /*-------------------------------*/
-    /* -------- Choose faction ------*/
-    $("#factionChooser :last-child").hide();
-    var faction = false;
+    /*--------------------------------*/
+    /* -------- Faction manager ------*/
+    
+    function factionManager() {
+        // Get first faction
+        var faction;
 
-    $("#factionChooser").click(function () {
-        $("#factionChooser :first-child").toggle();
-        $("#factionChooser :last-child").toggle();
+        if ($('#factionChecker').val() == "True") {
+            faction = true;
+            $("#factionChooser :first-child").hide();
+        }
+        else {
+            faction = false;
+            $("#factionChooser :last-child").hide();
+        }
+
+        $("#factionChooser").click(function () {
+            $("#factionChooser :first-child").toggle();
+            $("#factionChooser :last-child").toggle();
         
-        faction = !faction;
-        $('#factionChecker').attr('checked', faction);
-        $('#factionChecker').val(faction);
-    });
+            faction = !faction;
+            $('#factionChecker').attr('checked', faction);
+            $('#factionChecker').val(faction);
+        });
+    }
 
+    factionManager();
 
-    /* -------- Add carac -----------*/
-    $("#AddCaracButton").click(function (e) {
-        
-        e.preventDefault();
-
+    /* -------- Add and remove carac -----------*/
+    function AddCarac() {
         $.ajax({
             cache: false,
             type: "GET",
@@ -68,7 +78,16 @@
         });
 
         CaracIndex++;
-    });
+    }
+
+    function RemoveCarac() {
+        $("#CaracsContainer tr:last-child").remove();
+    }
+
+    $("#AddCaracButton").click(AddCarac);
+
+    $("#RemoveCaracButton").click(RemoveCarac);
+
     /*-------------------------------*/
 
     /* ------------ Edit ----------- */
@@ -85,6 +104,11 @@
                 area.html(data);
                 changeForm();
                 $(".edit-column").off();
+                factionManager();
+
+                // Activation des fonctionnalités
+                $("#AddCaracButton").click(AddCarac);
+                $("#RemoveCaracButton").click(RemoveCarac);
             },
             error: function () {
                 alert("Error !");

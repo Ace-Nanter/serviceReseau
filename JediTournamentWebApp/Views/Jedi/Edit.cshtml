@@ -1,0 +1,38 @@
+﻿@model JediTournamentWebApp.Models.JediWebModel
+@Html.ValidationSummary(true)
+
+<td>@Html.HiddenFor(Model => Model.Id)</td>
+<td>
+    <span id="factionChooser" title="Click to change the faction">
+        <img src="~/Content/Pics/logo_alliance.png" />
+        <img src="~/Content/Pics/logo_empire.png" />
+    </span>
+    @Html.HiddenFor(Model => Model.IsSith, new { id = "factionChecker" })
+</td>
+<td>
+    <div class="creation-main">
+        @Html.LabelFor(Model => Model.Nom)
+        @Html.EditorFor(Model => Model.Nom)
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Caracteristique(s)</th>
+                <th>
+                    <div id="AddCaracButton" class="btn btn-default">+</div>
+                    <div id="RemoveCaracButton" class="btn btn-default">-</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="CaracsContainer">
+            @{ 
+                if(Model.Caracteristiques != null) {
+                    foreach(var c in Model.Caracteristiques) {
+                        Html.RenderAction("AddCarac");
+                    }
+                }
+            }
+            <!-- Here will be added the characteristics -->
+        </tbody>
+    </table>
+</td>
