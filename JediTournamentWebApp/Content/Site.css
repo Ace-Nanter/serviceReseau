@@ -72,6 +72,10 @@ input {
     color: white;
 }
 
+.caracs-btn {
+    width : 10%;
+}
+
 /* End edit table */
 
 #confirmButton, #createButton {
@@ -116,7 +120,6 @@ input {
 
 /* Fin Creation table */
 
-
 #factionChooser img {
     display: inline-block;
     position: relative;
@@ -129,13 +132,25 @@ input {
 .creation-main label {
     display: inline-block;
     position: relative;
+    margin-left : 1%;
+    margin-right : 10px;
 }
 
 .creation-main input[type=text] {
     width : 60%;
-    margin-left : 20px;
+    margin-left : 5px;
+    margin-right : 20px;
+    padding-left : 10px;
     background-color : white;
     color : black;
+}
+
+.creation-main input[type=number] {
+    background-color : white;
+    margin-left : 5px;
+    margin-right : 20px;
+    color : black;
+    padding-left : 10px;
 }
 
 .creation-caracs {

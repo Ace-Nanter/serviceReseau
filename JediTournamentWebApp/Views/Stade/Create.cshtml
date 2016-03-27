@@ -1,19 +1,16 @@
-﻿@model JediTournamentWebApp.Models.JediWebModel
+﻿@model JediTournamentWebApp.Models.StadeWebModel
 @Html.ValidationSummary(true)
 
-@{ Html.BeginForm("Create", "Jedi", FormMethod.Post, new { name = "CreateForm" }); }
+@{ Html.BeginForm("Create", "Stade", FormMethod.Post, new { name = "CreateForm" }); }
 
 <div class="panel panel-info">
-    <div class="panel-heading">Add a jedi</div>
+    <div class="panel-heading">Add a stadium</div>
     <div class="creation-main">
-        <span id="factionChooser" title="Click to change the faction">
-            <img src="~/Content/Pics/logo_alliance.png" />
-            <img src="~/Content/Pics/logo_empire.png"/>
-        </span>
+        @Html.LabelFor(Model => Model.Planet)
+        @Html.EditorFor(Model => Model.Planet)
 
-        @Html.HiddenFor(Model => Model.IsSith, new { id="factionChecker" })
-        @Html.LabelFor(Model => Model.Nom)
-        @Html.EditorFor(Model => Model.Nom)
+        @Html.LabelFor(Model => Model.nbPlaces)
+        @Html.EditorFor(Model => Model.nbPlaces)
     </div>
     <div class="creation-caracs">
         <table class="table table-striped">
@@ -32,7 +29,7 @@
         </table>
     </div>
     <a href="javascript:(function(){document.CreateForm.submit();return void(0);})()"
-       id="createButton" class="btn btn-lg btn-success">Add a new Jedi</a>
+       id="createButton" class="btn btn-lg btn-success">Add a new Stadium</a>
 </div>
 
 @{Html.EndForm(); }

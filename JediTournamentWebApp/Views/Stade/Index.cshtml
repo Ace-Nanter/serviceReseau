@@ -1,0 +1,75 @@
+﻿@model IEnumerable<JediTournamentWebApp.Models.StadeWebModel>
+
+@{  ViewBag.Title = "Manage Stadiums"; }
+
+@Styles.Render("~/Content/css")
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/general.js")"></script>
+}
+
+@if (ViewData["error"] != null) {
+    <div class="alert alert-danger">@ViewData["error"]</div>
+}
+else {
+    <div class="alert alert-success">Action(s) completed</div>
+}
+
+@{ Html.BeginForm("Delete", "Stade", FormMethod.Post, new { name = "removeForm" }); }
+@if (Model != null) {
+    <table class="table table-striped gestion-table">
+        <thead>
+            <tr>
+                <th class="select-column"><input type="checkbox" /></th>
+                <th class="label-primary">Planets Name</th>
+                <th class="label-primary">Capacity</th>
+                <th class="edit-column label-primary">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="item">
+                    <td><input type="checkbox" name="deleteInputs" value="@item.Id" /></td>
+                    <td class="extendables">
+                        <label>
+                            @Html.DisplayFor(Model => item.Planet)
+                        </label>
+                        <div class="caracteristiques">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="label-primary">Name</th>
+                                        <th class="label-primary">Definition</th>
+                                        <th class="label-primary">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var c in item.Caracteristiques) {
+                                        <tr class="item">
+                                            <td>@Html.DisplayFor(Model => c.Nom)</td>
+                                            <td>@Html.DisplayFor(Model => c.Definition)</td>
+                                            <td>@Html.DisplayFor(Model => c.Valeur)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <td>@Html.DisplayFor(Model => item.nbPlaces)</td>
+                    <td class="edit-column"><img src="~/Content/Pics/edit.png" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+        <a href="javascript:(function(){document.removeForm.submit();return void(0);})()"
+           id="confirmButton" class="btn btn-lg btn-danger">Remove</a>
+}
+else {
+    <p>There is no stade available !</p>
+}
+@{Html.EndForm(); }
+
+@{Html.RenderAction("Create"); }
+

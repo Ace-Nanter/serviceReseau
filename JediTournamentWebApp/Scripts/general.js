@@ -68,7 +68,7 @@
         $.ajax({
             cache: false,
             type: "GET",
-            url: "/Jedi/AddCarac",
+            url: $(location).attr('pathname') + '/AddCarac',
             success: function (data) {
                 $("#CaracsContainer").append(data);
             },

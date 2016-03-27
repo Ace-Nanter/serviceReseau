@@ -19,8 +19,7 @@ namespace JediTournamentWebApp.Models {
         [Required]
         [Display(Name = "Force side")]
         public bool IsSith { get; set; }
-
-        
+     
         [Display (Name = "Caracteristics")]
         public List<CaracWebModel> Caracteristiques { get; set; }
 
@@ -44,7 +43,6 @@ namespace JediTournamentWebApp.Models {
             Caracteristiques = new List<CaracWebModel>();
 
             if (j.Caracteristiques != null) {
-                int i = 0;
                 foreach (CaracteristiqueWCF c in j.Caracteristiques) {
                     Caracteristiques.Add(new CaracWebModel(c));
                 }
