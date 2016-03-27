@@ -1,0 +1,32 @@
+﻿@model JediTournamentWebApp.Models.MatchWebModel
+
+
+<td><input type="checkbox" name="deleteInputs" value="@Model.Id" /></td>
+<td class="match-extendable">
+    @Html.Label(Model.Jedi1.Nom)
+    <div>
+        Planete :
+        @Html.Label(Model.Stade.Planet)
+    </div>
+    <div>
+        Vainqueur :
+        @if (Model.Winner == null || Model.Winner.Id == 0) {
+            <label>Not defined yet</label>
+        }
+        else {
+            @Html.Display(Model.Winner.Nom);
+        }
+    </div>
+    <div>
+        Phase :
+        @Html.DisplayFor(Model => Model.Phase)
+    </div>
+</td>
+<td>V.S.</td>
+<td class="match-extendable">
+    @Html.Label(Model.Jedi2.Nom)
+    <div>
+        @Html.Label(Model.Stade.nbPlaces.ToString()) places
+    </div>
+</td>
+<td class="edit-column"><img src="~/Content/Pics/edit.png" /></td>

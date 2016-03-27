@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace JediTournamentWebApp.Controllers
 {
-    public class StadeController : Controller
-    { 
+    public class MatchController : Controller {
+
         #region Index
-        // GET: Stade
+        // GET: Match
         public ActionResult Index() {
             try {
                 using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-                    List<StadeWCF> webList = client.getStades();
-                    List<StadeWebModel> localList = new List<StadeWebModel>();
+                    List<MatchWCF> webList = client.getMatchs();
+                    List<MatchWebModel> localList = new List<MatchWebModel>();
 
-                    foreach (StadeWCF s in webList) {
-                        localList.Add(new StadeWebModel(s));
+                    foreach (MatchWCF m in webList) {
+                        localList.Add(new MatchWebModel(m));
                     }
 
                     if (TempData["error"] != null) {
@@ -35,19 +35,53 @@ namespace JediTournamentWebApp.Controllers
             catch {
                 return View();
             }
+
         }
-        
+
+        // GET: Match/Details/5
+        public ActionResult Details(int id) {
+            MatchWebModel item = null;
+            try {
+                using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
+                    List<MatchWCF> webList = client.getMatchs();
+
+                    foreach (MatchWCF m in webList) {
+                        if (m.Id == id) {
+                            item = new MatchWebModel(m);
+                            break;
+                        }
+                    }
+
+                    if (TempData["error"] != null) {
+                        ViewData["error"] = TempData["error"];
+                    }
+                    else {
+                        ViewData["error"] = null;
+                    }
+
+                    // Si on ne trouve pas le Match
+                    if (item == null) {
+                        throw new Exception("No way to found the match !");
+                    }
+
+                    return PartialView(item);
+                }
+            }
+            catch {
+                return null;
+            }
+        }
         #endregion
-
+        /*
         #region Creation
-        // GET: Stade/Create
+        // GET: Match/Create
         public ActionResult Create() {
-            return PartialView(new StadeWebModel());
+            return PartialView(new MatchWebModel());
         }
-
-        // POST: Stade/Create
+        /*
+        // POST: Match/Create
         [HttpPost]
-        public ActionResult Create(StadeWebModel stade, int[] caracIds) {
+        public ActionResult Create(MatchWebModel match) {
             if (ModelState.IsValid) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
@@ -69,11 +103,11 @@ namespace JediTournamentWebApp.Controllers
                                 }
                             }
                         }
-                        List<StadeWCF> list = client.getStades();
+                        List<MatchWCF> list = client.getMatchs();
 
-                        // Création du StadeWCF
-                        stade.Caracteristiques = caracList;
-                        client.newStade(stade.convert());
+                        // Création du MatchWCF
+                        jedi.Caracteristiques = caracList;
+                        client.newJedi(jedi.convert());
 
                         client.Close();
                     }
@@ -96,8 +130,8 @@ namespace JediTournamentWebApp.Controllers
                     List<CaracWebModel> localList = new List<CaracWebModel>();
 
                     foreach (CaracteristiqueWCF c in webList) {
-                        // Si c'est une caractéristique de Stade
-                        if (c.Type != 0) {
+                        // Si c'est une caractéristique de Jedi
+                        if (c.Type == 0) {
                             localList.Add(new CaracWebModel(c));
                         }
                     }
@@ -119,16 +153,16 @@ namespace JediTournamentWebApp.Controllers
         #endregion
 
         #region Edition
-        // GET: Stade/Edit/5
+        // GET: Jedi/Edit/5
         public ActionResult Edit(int id) {
-            StadeWebModel item = null;
+            MatchWebModel item = null;
             try {
                 using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-                    List<StadeWCF> webList = client.getStades();
+                    List<MatchWCF> webList = client.getMatchs();
 
-                    foreach (StadeWCF s in webList) {
-                        if (s.Id == id) {
-                            item = new StadeWebModel(s);
+                    foreach (MatchWCF j in webList) {
+                        if (j.Id == id) {
+                            item = new MatchWebModel(j);
                             break;
                         }
                     }
@@ -140,9 +174,9 @@ namespace JediTournamentWebApp.Controllers
                         ViewData["error"] = null;
                     }
 
-                    // Si on ne trouve pas le Stade
+                    // Si on ne trouve pas le Jedi
                     if (item == null) {
-                        throw new Exception("No way to found the stade !");
+                        throw new Exception("No way to found the jedi !");
                     }
 
                     return PartialView(item);
@@ -151,11 +185,12 @@ namespace JediTournamentWebApp.Controllers
             catch {
                 return null;
             }
+            return View();
         }
 
-        // POST: Stade/Edit/5
+        // POST: Jedi/Edit/5
         [HttpPost]
-        public ActionResult Edit(StadeWebModel stade, int[] caracIds) {
+        public ActionResult Edit(MatchWebModel jedi, int[] caracIds) {
 
             if (ModelState.IsValid) {
                 try {
@@ -179,18 +214,18 @@ namespace JediTournamentWebApp.Controllers
                         }
 
                         // Ajout des caractéristiques
-                        stade.Caracteristiques = caracList;
+                        jedi.Caracteristiques = caracList;
 
-                        // Recherche du stade et mise à jour
-                        List<StadeWCF> list = client.getStades();
+                        // Recherche du jedi et mise à jour
+                        List<MatchWCF> list = client.getMatchs();
                         for (int i = 0; i < list.Count; i++) {
-                            if (list[i].Id == stade.Id) {
-                                list[i] = stade.convert();
+                            if (list[i].Id == jedi.Id) {
+                                list[i] = jedi.convert();
                                 break;
                             }
                         }
 
-                        client.updateStades(list);
+                        client.updateMatchs(list);
                         client.Close();
                     }
                 }
@@ -207,8 +242,7 @@ namespace JediTournamentWebApp.Controllers
         #endregion
 
         #region Suppression
-
-        // POST: Stade/Delete/5
+        // POST: Jedi/Delete/5
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(string[] deleteInputs) {
 
@@ -228,7 +262,7 @@ namespace JediTournamentWebApp.Controllers
             if (id != null && id.Count > 0) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-                        client.removeStades(id);
+                        client.removeJedis(id);
                     }
                     return RedirectToAction("Index");
                 }
@@ -240,6 +274,6 @@ namespace JediTournamentWebApp.Controllers
 
             return RedirectToAction("Index");
         }
-        #endregion
+        #endregion*/
     }
 }

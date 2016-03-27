@@ -27,13 +27,36 @@
 
     /* ------------------------------*/
 
-    /* ----- Extends list -----------*/
+    /* ----- Extends caracs list ----*/
 
     var list = $(".extendables label");
 
     list.click(function () {
         $(this).parent().children(".caracteristiques").slideToggle("slow");
         
+    });
+    /*--------------------------------*/
+
+    /* ----- Extends matchs ----------*/
+    $(".match-extendable label").click(function () {
+        var area = $(this).parent().parent(".item");
+        area.toggle();
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: $(location).attr('pathname') + "/Details",
+            data: {
+                id: area.find("input").val()
+            },
+            success: function (data) {
+                area.html(data);
+                area.slideToggle("slow");
+            },
+            error: function () {
+                alert("Error !");
+            }
+        })
     });
     /*--------------------------------*/
     /* -------- Faction manager ------*/
@@ -114,7 +137,6 @@
                 alert("Error !");
             }
         })
-
     });
 
     function changeForm() {

@@ -33,7 +33,6 @@ namespace JediTournamentWCF.EntitiesWCF {
             }
             else
                 Caracteristiques = null;
-            
         }
 
         /// <summary>

@@ -49,9 +49,9 @@ namespace JediTournamentWebApp.Models {
             }
         }
 
-        public JediWCF convert(int id) {
+        public JediWCF convert() {
             JediWCF j = new JediWCF();
-            j.Id = id;
+            j.Id = this.Id;
             j.Nom = this.Nom;
             j.IsSith = this.IsSith;
 

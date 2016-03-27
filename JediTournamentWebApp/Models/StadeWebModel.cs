@@ -49,9 +49,9 @@ namespace JediTournamentWebApp.Models {
         /// </summary>
         /// <param name="id">Id to give to the new StadeWCF</param>
         /// <returns>A StadeWCF instance.</returns>
-        public StadeWCF convert(int id) {
+        public StadeWCF convert() {
             StadeWCF s = new StadeWCF();
-            s.Id = id;
+            s.Id = this.Id;
             s.Planet = Planet;
             s.nbPlaces = nbPlaces;
 

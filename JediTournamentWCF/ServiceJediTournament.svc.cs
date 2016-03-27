@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JediTournamentWCF.EntitiesWCF;
 using EntitiesLayer;
 using BusinessLayer;
+using System.Linq;
 
 namespace JediTournamentWCF {
     // REMARQUE : pour lancer le client test WCF afin de tester ce service, sélectionnez ServiceJediTournament.svc ou ServiceJediTournament.svc.cs dans l'Explorateur de solutions et démarrez le débogage.
@@ -35,15 +36,12 @@ namespace JediTournamentWCF {
         bool IServiceJediTournament.newCarac(CaracteristiqueWCF item) {
             bool flag = true;
 
-            List<Caracteristique> values = new List<Caracteristique>();
+            
             JediTournamentManager manager = new JediTournamentManager();
-
-            foreach (Caracteristique c in manager.getCaracteristiques()) {
-                values.Add(c);
-            }
+            List<Caracteristique> values = manager.getCaracteristiques();
 
             // Mise en place de l'ID correct et ajout
-            item.Id = values[values.Count - 1].Id + 1;
+            item.Id = values.Max(c => c.Id);
             values.Add(item.convert());
 
             try {
@@ -147,16 +145,10 @@ namespace JediTournamentWCF {
         /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
         bool IServiceJediTournament.newJedi(JediWCF item) {
             bool flag = true;
-
-            List<Jedi> values = new List<Jedi>();
+            
             JediTournamentManager manager = new JediTournamentManager();
-
-            foreach(Jedi j in manager.getJedis()) {
-                values.Add(j);
-            }
-
-            // Mise en place de l'ID correct et ajout
-            item.Id = values[values.Count - 1].Id + 1;
+            List<Jedi> values = manager.getJedis();
+            item.Id = values.Max(j => j.Id);
             values.Add(item.convert());
 
             try {
@@ -251,15 +243,11 @@ namespace JediTournamentWCF {
         bool IServiceJediTournament.newStade(StadeWCF item) {
             bool flag = true;
 
-            List<Stade> values = new List<Stade>();
             JediTournamentManager manager = new JediTournamentManager();
-
-            foreach (Stade s in manager.getStades()) {
-                values.Add(s);
-            }
+            List<Stade> values = manager.getStades();
 
             // Mise en place de l'ID correct et ajout
-            item.Id = values[values.Count - 1].Id + 1;
+            item.Id = values.Max(s => s.Id);
             values.Add(item.convert());
 
             try {
@@ -320,18 +308,107 @@ namespace JediTournamentWCF {
         }
 
         #endregion
-        List<MatchWCF> IServiceJediTournament.getMatchs() {
+
+        #region Matchs
+        /// <summary>
+        /// Récupère la liste des matchs
+        /// </summary>
+        /// <returns>La liste des matchs</returns>
+        private List<MatchWCF> getMatchs() {
             List<MatchWCF> values = new List<MatchWCF>();
             JediTournamentManager manager = new JediTournamentManager();
 
-            foreach(Match m in manager.getMatches()) {
-                values.Add(new MatchWCF(m));
+            foreach (Match m in manager.getMatches()) {
+                if( (m.Jedi1 != null && m.Jedi1.Id != 0)
+                    && (m.Jedi2 != null && m.Jedi2.Id != 0)) {
+                    values.Add(new MatchWCF(m));
+                }
             }
 
             return values;
         }
 
-        
+        /// <summary>
+        /// Récupère la liste des matchs
+        /// </summary>
+        /// <returns>La liste des matchs</returns>
+        List<MatchWCF> IServiceJediTournament.getMatchs() {
+            return getMatchs();
+        }
+
+        /// <summary>
+        /// Ajoute un nouveau match.
+        /// </summary>
+        /// <param name="m">Match à ajouter</param>
+        /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
+        bool IServiceJediTournament.newMatch(MatchWCF item) {
+            bool flag = true;
+
+            JediTournamentManager manager = new JediTournamentManager();
+            List<Match> values = manager.getMatches();
+
+            // Mise en place de l'ID correct et ajout
+            item.Id = values.Max(m => m.Id);
+            values.Add(item.convert());
+
+            try {
+                manager.updateMatches(values);
+            }
+            catch {
+                flag = false;
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Supprime les matchs dont les IDs sont donnés en paramètre
+        /// </summary>
+        /// <param name="removeList">Liste des IDs des matchs à supprimer</param>
+        /// <returns>Vrai si succès, sinon faux</returns>
+        bool IServiceJediTournament.removeMatch(List<int> ids) {
+
+            bool flag = true;
+            List<Match> values = new List<Match>();
+            JediTournamentManager manager = new JediTournamentManager();
+
+            foreach (Match m in manager.getMatches()) {
+                if (!ids.Contains(m.Id)) {
+                    values.Add(m);
+                }
+            }
+
+            try {
+                manager.updateMatches(values);
+            }
+            catch {
+                flag = false;
+            }
+
+            return flag;
+        }
+
+        /// <summary>
+        /// Modifie la liste des matchs par celle donnée en argument
+        /// </summary>
+        /// <param name="matchList">Nouvelle liste de matchs</param>
+        /// <returns>Vrai si la mise à jour a bien eu lieu, faux sinon</returns>
+        bool IServiceJediTournament.updateMatchs(List<MatchWCF> matchList) {
+
+            bool flag = true;
+            List<Match> values = new List<Match>();
+
+            foreach (MatchWCF m in matchList) {
+                values.Add(m.convert());
+            }
+
+            JediTournamentManager manager = new JediTournamentManager();
+            manager.updateMatches(values);
+
+            return flag;
+        }
+
+        #endregion Matchs
 
         List<TournoiWCF> IServiceJediTournament.getTournois() {
             throw new NotImplementedException();

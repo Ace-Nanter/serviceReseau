@@ -1,0 +1,61 @@
+﻿@model IEnumerable<JediTournamentWebApp.Models.MatchWebModel>
+
+@{ ViewBag.Title = "Manage Matchs"; }
+
+@Styles.Render("~/Content/css")
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/general.js")"></script>
+}
+
+@if (ViewData["error"] != null) {
+    <div class="alert alert-danger">@ViewData["error"]</div>
+}
+else {
+    <div class="alert alert-success">Action(s) completed</div>
+}
+
+@{ Html.BeginForm("Delete", "Match", FormMethod.Post, new { name = "removeForm" }); }
+@if (Model != null) {
+    <table class="table table-striped gestion-table">
+        <thead>
+            <tr>
+                <th class="select-column"><input type="checkbox" /></th>
+                <th class="label-primary">Jedi 1</th>
+                <th class="label-primary">VS</th>
+                <th class="label-primary">Jedi 2</th>
+                <th class="edit-column label-primary">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr class="item">
+                    <td><input type="checkbox" name="deleteInputs" value="@item.Id" /></td>
+                    <td class="match-extendable">
+                        <label>
+                            @Html.DisplayFor(Model => item.Jedi1.Nom)
+                        </label>
+                    </td>
+                    <td>V.S.</td>
+                    <td class="match-extendable">
+                        <label>
+                            @Html.DisplayFor(Model => item.Jedi2.Nom)
+                        </label>
+                    </td>
+                    <td class="edit-column"><img src="~/Content/Pics/edit.png" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+        <a href="javascript:(function(){document.removeForm.submit();return void(0);})()"
+           id="confirmButton" class="btn btn-lg btn-danger">Remove</a>
+}
+else {
+    <p>There is no match available !</p>
+}
+@{Html.EndForm(); }
+
+@*@{Html.RenderAction("Create"); } *@
+

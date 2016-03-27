@@ -18,7 +18,7 @@ namespace JediTournamentWebApp.Models {
 
         [Required]
         [Display(Name = "Definition")]
-        public DefCaracWeb Definition { get; set; }
+        public EDefCaracWeb Definition { get; set; }
         
         [Required]
         [Display(Name = "Value")]
@@ -37,7 +37,7 @@ namespace JediTournamentWebApp.Models {
             Id = c.Id;
             Nom = c.Nom;
             Valeur = c.Valeur;
-            Definition = (DefCaracWeb) c.Definition;
+            Definition = (EDefCaracWeb) c.Definition;
             Type = c.Type;
         }
 

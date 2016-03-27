@@ -49,11 +49,7 @@ namespace JediTournamentWebApp.Controllers
             if (ModelState.IsValid) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-                        List<CaracteristiqueWCF> list = client.getCaracs();
-                        int newId = list.Max(o => o.Id);
-                        CaracteristiqueWCF c = carac.convert(newId + 1);
-                        list.Add(c);
-                        client.updateCaracs(list);
+                        client.newCarac(carac.convert(0));
                         client.Close();
                     }
                 }

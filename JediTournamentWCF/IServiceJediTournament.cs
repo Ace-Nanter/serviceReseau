@@ -115,6 +115,7 @@ namespace JediTournamentWCF {
 
         #endregion
 
+        #region Matchs
         /// <summary>
         /// Get the Matchs list.
         /// </summary>
@@ -123,9 +124,34 @@ namespace JediTournamentWCF {
         List<MatchWCF> getMatchs();
 
         /// <summary>
-        /// Get the Tournament list.
+        /// Ajoute un nouveau match.
         /// </summary>
-        /// <returns>List of Tournaments.</returns>
+        /// <param name="m">Match à ajouter</param>
+        /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
+        [OperationContract]
+        bool newMatch(MatchWCF item);
+
+        /// <summary>
+        /// Supprime les matchs dont les IDs sont donnés en paramètre
+        /// </summary>
+        /// <param name="removeList">Liste des IDs des matchs à supprimer</param>
+        /// <returns>Vrai si succès, sinon faux</returns>
+        [OperationContract]
+        bool removeMatch(List<int> ids);
+
+        /// <summary>
+        /// Modifie la liste des matchs par celle donnée en argument
+        /// </summary>
+        /// <param name="matchList">Nouvelle liste de matchs</param>
+        /// <returns>Vrai si la mise à jour a bien eu lieu, faux sinon</returns>
+        bool updateMatchs(List<MatchWCF> matchList);
+
+        #endregion Matchs
+
+            /// <summary>
+            /// Get the Tournament list.
+            /// </summary>
+            /// <returns>List of Tournaments.</returns>
         [OperationContract]
         List<TournoiWCF> getTournois();
 

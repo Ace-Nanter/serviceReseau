@@ -119,7 +119,8 @@ INSERT INTO [MatchTournoi] ([IdTournoi], [IdMatch]) VALUES
 (1, 15)
 
 INSERT INTO [Users] ([Id], [Login], [Password], [Prenom], [Nom]) VALUES
-(1, 'begarco', '15851918021222115514974461602051215898129243254222', 'Benoît', 'Garçon')
+(1, 'begarco', '15851918021222115514974461602051215898129243254222', 'Benoît', 'Garçon'),
+(2, 'ace_nanter', '47080f6e8acaa81d1bf5d7f0142ae933b54e09b1', 'Adrien', 'Pierreval')
 
 INSERT INTO [Tournois] ([Id], [Nom]) VALUES
 (1, 'Mos Eisley Tournament')

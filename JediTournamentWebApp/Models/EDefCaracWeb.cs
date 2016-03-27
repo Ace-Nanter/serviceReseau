@@ -10,7 +10,7 @@ namespace JediTournamentWebApp.Models {
     /// <summary>
     /// Define the characteristics.
     /// </summary>
-    public enum DefCaracWeb {
+    public enum EDefCaracWeb {
         [Description("Strength")]
         Strength,
 

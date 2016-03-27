@@ -56,12 +56,11 @@ namespace JediTournamentWebApp.Controllers
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
 
                         List<CaracWebModel> caracList = new List<CaracWebModel>();
-                        JediWebModel toAdd = jedi;
+
                         // Récupération caractéristiques si nécessaire
                         if (caracIds != null && caracIds.Length > 0) {
                             List<CaracteristiqueWCF> webList = client.getCaracs();
                             
-
                             // Pour chaque caractéristique voulue
                             foreach (int id in caracIds) {
                                 // On cherche la caractéristique correspondante
@@ -76,12 +75,9 @@ namespace JediTournamentWebApp.Controllers
                         List<JediWCF> list = client.getJedis();
 
                         // Création du JediWCF
-                        toAdd.Caracteristiques = caracList;
-                        int newId = list.Max(o => o.Id);
-                        JediWCF j = jedi.convert(newId + 1);
-                        list.Add(j);
+                        jedi.Caracteristiques = caracList;
+                        client.newJedi(jedi.convert());
 
-                        client.updateJedis(list);
                         client.Close();
                     }
                 }
@@ -194,7 +190,7 @@ namespace JediTournamentWebApp.Controllers
                         List<JediWCF> list = client.getJedis();
                         for (int i = 0; i < list.Count; i++) {
                             if(list[i].Id == jedi.Id) {
-                                list[i] = jedi.convert(jedi.Id);
+                                list[i] = jedi.convert();
                                 break;
                             }
                         }
