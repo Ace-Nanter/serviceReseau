@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\StadeController.cs" />
+    <Compile Include="Controllers\TournoiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +189,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MatchWebModel.cs" />
     <Compile Include="Models\StadeWebModel.cs" />
+    <Compile Include="Models\TournoiWebModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\JediTournamentWCF\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -306,6 +308,7 @@
     <Content Include="Views\Match\Index.cshtml" />
     <Content Include="Views\Match\Create.cshtml" />
     <Content Include="Views\Match\Details.cshtml" />
+    <Content Include="Views\Tournoi\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

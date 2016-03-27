@@ -115,6 +115,8 @@
 
     /* ------------ Edit ----------- */
     $(".edit-column").click(function (e) {
+        e.preventDefault();
+
         var area = $(this).parent(".item");
         $.ajax({
             cache: false,
@@ -151,5 +153,25 @@
         $("#confirmButton").attr('href', 'javascript:(function(){document.editForm.submit();return void(0);})()');
     }
 
+    /*-------------------------------*/
+    /* ----------- Launch ---------- */
+    $(".launch-column").click(function () {
+
+        var area = $(this).parent(".item");
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: $(location).attr('pathname') + "/Launch",
+            data: {
+                idTournoi: $(this).parent(".item").find("input").val()
+            },
+            success: function () {
+                alert("Tournament launched !");
+            },
+            error: function () {
+                alert("Error !");
+            }
+        })
+    });
     /*-------------------------------*/
 });

@@ -6,24 +6,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace JediTournamentWebApp.Controllers
-{
-    public class JediController : Controller
-    {
+namespace JediTournamentWebApp.Controllers {
+    public class JediController : Controller {
         #region Index
         // GET: Jedi
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             try {
                 using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
                     List<JediWCF> webList = client.getJedis();
                     List<JediWebModel> localList = new List<JediWebModel>();
-                    
+
                     foreach (JediWCF j in webList) {
                         localList.Add(new JediWebModel(j));
                     }
 
-                    if(TempData["error"] != null) {
+                    if (TempData["error"] != null) {
                         ViewData["error"] = TempData["error"];
                     }
                     else {
@@ -36,22 +33,20 @@ namespace JediTournamentWebApp.Controllers
             catch {
                 return View();
             }
-            
+
         }
         #endregion
 
         #region Creation
         // GET: Jedi/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             return PartialView(new JediWebModel());
         }
 
         // POST: Jedi/Create
         [HttpPost]
-        public ActionResult Create(JediWebModel jedi, int[] caracIds)
-        {
-            if(ModelState.IsValid) {
+        public ActionResult Create(JediWebModel jedi, int[] caracIds) {
+            if (ModelState.IsValid) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
 
@@ -60,7 +55,7 @@ namespace JediTournamentWebApp.Controllers
                         // Récupération caractéristiques si nécessaire
                         if (caracIds != null && caracIds.Length > 0) {
                             List<CaracteristiqueWCF> webList = client.getCaracs();
-                            
+
                             // Pour chaque caractéristique voulue
                             foreach (int id in caracIds) {
                                 // On cherche la caractéristique correspondante
@@ -72,9 +67,8 @@ namespace JediTournamentWebApp.Controllers
                                 }
                             }
                         }
-                        List<JediWCF> list = client.getJedis();
 
-                        // Création du JediWCF
+                        // Ajout du JediWCF
                         jedi.Caracteristiques = caracList;
                         client.newJedi(jedi.convert());
 
@@ -100,7 +94,7 @@ namespace JediTournamentWebApp.Controllers
 
                     foreach (CaracteristiqueWCF c in webList) {
                         // Si c'est une caractéristique de Jedi
-                        if(c.Type == 0) {
+                        if (c.Type == 0) {
                             localList.Add(new CaracWebModel(c));
                         }
                     }
@@ -123,8 +117,7 @@ namespace JediTournamentWebApp.Controllers
 
         #region Edition
         // GET: Jedi/Edit/5
-        public ActionResult Edit(int id)
-        {
+        public ActionResult Edit(int id) {
             JediWebModel item = null;
             try {
                 using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
@@ -155,7 +148,6 @@ namespace JediTournamentWebApp.Controllers
             catch {
                 return null;
             }
-            return View();
         }
 
         // POST: Jedi/Edit/5
@@ -189,7 +181,7 @@ namespace JediTournamentWebApp.Controllers
                         // Recherche du jedi et mise à jour
                         List<JediWCF> list = client.getJedis();
                         for (int i = 0; i < list.Count; i++) {
-                            if(list[i].Id == jedi.Id) {
+                            if (list[i].Id == jedi.Id) {
                                 list[i] = jedi.convert();
                                 break;
                             }
@@ -229,7 +221,7 @@ namespace JediTournamentWebApp.Controllers
             }
             #endregion
 
-            if(id != null && id.Count > 0) {
+            if (id != null && id.Count > 0) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
                         client.removeJedis(id);
@@ -241,7 +233,7 @@ namespace JediTournamentWebApp.Controllers
                     return RedirectToAction("Index");
                 }
             }
-                
+
             return RedirectToAction("Index");
         }
         #endregion

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<JediTournamentWebApp.Models.TournoiWebModel>
+
+@{ ViewBag.Title = "Launch Tournaments"; }
+
+@Styles.Render("~/Content/css")
+
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/general.js")"></script>
+}
+
+@if (ViewData["error"] != null) {
+    <div class="alert alert-danger">@ViewData["error"]</div>
+}
+else {
+    <div class="alert alert-success">Action(s) completed</div>
+}
+
+@{ Html.BeginForm("Launch", "Tournoi", FormMethod.Post, new { name = "launchForm" }); }
+    @if (Model != null) {
+        <table class="table table-striped gestion-table">
+            <thead>
+                <tr>
+                    <th hidden="hidden"></th>
+                    <th class="label-primary">Name</th>
+                    <th class="label-primary">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr class="item">
+                        <td hidden="hidden"><input type="checkbox" name="deleteInputs" value="@item.Id" /></td>
+                        <td>
+                            @Html.Label(item.Nom)
+                        </td>
+                        <td class="launch-column">
+                            <div class="btn btn-default">Launch</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        
+    }
+    else {
+        <p>There is no tournament available !</p>
+    }
+@{ Html.EndForm(); }

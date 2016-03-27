@@ -155,5 +155,8 @@ namespace JediTournamentWCF {
         [OperationContract]
         List<TournoiWCF> getTournois();
 
+        [OperationContract]
+        bool launchTournoi(int tournoiId);
+
     }
 }

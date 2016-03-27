@@ -145,10 +145,10 @@ namespace JediTournamentWCF {
         /// <returns>Vrai si l'ajout s'est fait, sinon faux</returns>
         bool IServiceJediTournament.newJedi(JediWCF item) {
             bool flag = true;
-            
+
             JediTournamentManager manager = new JediTournamentManager();
             List<Jedi> values = manager.getJedis();
-            item.Id = values.Max(j => j.Id);
+            item.Id = values.Max(j => j.Id) + 1;
             values.Add(item.convert());
 
             try {
@@ -160,7 +160,7 @@ namespace JediTournamentWCF {
 
             return flag;
         }
-
+        
         /// <summary>
         /// Supprime les jedis dont les IDs sont donnés en paramètre
         /// </summary>
@@ -247,7 +247,7 @@ namespace JediTournamentWCF {
             List<Stade> values = manager.getStades();
 
             // Mise en place de l'ID correct et ajout
-            item.Id = values.Max(s => s.Id);
+            item.Id = values.Max(s => s.Id) + 1;
             values.Add(item.convert());
 
             try {
@@ -410,8 +410,49 @@ namespace JediTournamentWCF {
 
         #endregion Matchs
 
+        private List<TournoiWCF> getTournois() {
+            List<TournoiWCF> values = new List<TournoiWCF>();
+            JediTournamentManager manager = new JediTournamentManager();
+
+            foreach (Tournoi t in manager.getTournois()) {
+                values.Add(new TournoiWCF(t));
+            }
+
+            return values;
+        }
+
+        /// <summary>
+        /// Récupère la liste des matchs
+        /// </summary>
+        /// <returns>La liste des matchs</returns>
         List<TournoiWCF> IServiceJediTournament.getTournois() {
-            throw new NotImplementedException();
+            return getTournois();
+        }
+
+        bool IServiceJediTournament.launchTournoi(int tournoiId) {
+            bool flag = false;
+            Tournoi toLaunch = null;
+            JediTournamentManager manager = new JediTournamentManager();
+
+            List<Tournoi> list = manager.getTournois();
+            foreach(Tournoi t in list) {
+                if(t.Id == tournoiId) {
+                    toLaunch = t;
+                    break;
+                }
+            }
+
+            if(toLaunch != null) {
+                try {
+                    manager.simulateTournament(toLaunch);
+                    flag = true;
+                }
+                catch {
+                    flag = false;
+                }
+            }
+
+            return flag;
         }
     }
 }

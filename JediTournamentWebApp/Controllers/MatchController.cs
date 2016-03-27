@@ -35,7 +35,6 @@ namespace JediTournamentWebApp.Controllers
             catch {
                 return View();
             }
-
         }
 
         // GET: Match/Details/5
@@ -72,12 +71,14 @@ namespace JediTournamentWebApp.Controllers
             }
         }
         #endregion
-        /*
+
         #region Creation
         // GET: Match/Create
         public ActionResult Create() {
             return PartialView(new MatchWebModel());
         }
+        #endregion
+
         /*
         // POST: Match/Create
         [HttpPost]
@@ -85,8 +86,6 @@ namespace JediTournamentWebApp.Controllers
             if (ModelState.IsValid) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-
-                        List<CaracWebModel> caracList = new List<CaracWebModel>();
 
                         // Récupération caractéristiques si nécessaire
                         if (caracIds != null && caracIds.Length > 0) {
@@ -240,9 +239,10 @@ namespace JediTournamentWebApp.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+        */
 
         #region Suppression
-        // POST: Jedi/Delete/5
+        // POST: Match/Delete/5
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(string[] deleteInputs) {
 
@@ -262,7 +262,7 @@ namespace JediTournamentWebApp.Controllers
             if (id != null && id.Count > 0) {
                 try {
                     using (ServiceJediTournamentClient client = new ServiceJediTournamentClient()) {
-                        client.removeJedis(id);
+                        client.removeMatch(id);
                     }
                     return RedirectToAction("Index");
                 }
@@ -274,6 +274,6 @@ namespace JediTournamentWebApp.Controllers
 
             return RedirectToAction("Index");
         }
-        #endregion*/
+        #endregion
     }
 }

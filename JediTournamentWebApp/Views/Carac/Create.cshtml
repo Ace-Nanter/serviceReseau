@@ -27,7 +27,7 @@
                     <td>@Html.EditorFor(Model => Model.Nom)</td>
                     <td>
                         @Html.DropDownList("DefCaracWeb",
-                        EnumHelper.GetSelectList(typeof(JediTournamentWebApp.Models.DefCaracWeb)),
+                        EnumHelper.GetSelectList(typeof(JediTournamentWebApp.Models.EDefCaracWeb)),
                             "Select a definition", new { @class = "enum-chooser", Name="Definition" })
                     </td>
                     <td>

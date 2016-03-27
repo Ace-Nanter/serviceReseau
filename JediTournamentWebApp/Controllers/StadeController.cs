@@ -69,9 +69,8 @@ namespace JediTournamentWebApp.Controllers
                                 }
                             }
                         }
-                        List<StadeWCF> list = client.getStades();
 
-                        // Création du StadeWCF
+                        // Ajout du StadeWCF
                         stade.Caracteristiques = caracList;
                         client.newStade(stade.convert());
 
